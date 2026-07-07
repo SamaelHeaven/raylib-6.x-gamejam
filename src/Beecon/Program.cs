@@ -28,6 +28,7 @@ var config = Config
             new PlayerMovementSystem(),
             new CameraSystem(),
             new BeeMovementSystem(),
+            new DamageSystem(),
             new HealthSystem(),
         ]
     )

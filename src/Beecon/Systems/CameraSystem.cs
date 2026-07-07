@@ -6,7 +6,10 @@ public sealed class CameraSystem : GameSystem
 {
     public override void PreRender()
     {
-        Scene.Camera.Target = Scene.Player.RenderPosition;
+        var player = Scene.Player;
+        if (player.IsNull)
+            return;
+        Scene.Camera.Target = player.RenderPosition;
         Scene.Camera.Offset = Display.Size / 2;
     }
 }

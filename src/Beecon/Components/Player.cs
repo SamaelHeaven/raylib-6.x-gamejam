@@ -1,11 +1,11 @@
 ﻿namespace Beecon.Components;
 
-public struct Player { }
+public sealed class Player { }
 
 public static class ScenePlayerExtensions
 {
     extension(Scene scene)
     {
-        public Entity Player => scene.Entities<Player>().AsValueEnumerable().First();
+        public Entity Player => scene.Entities<Player>().AsValueEnumerable().FirstOrDefault();
     }
 }

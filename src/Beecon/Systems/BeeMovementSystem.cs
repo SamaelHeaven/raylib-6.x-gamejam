@@ -14,6 +14,16 @@ public sealed class BeeMovementSystem : GameSystem
     private static float SpreadArrivalRadius => ArrivalRadius;
     private static float SpreadRadius => 120f;
 
+    public override void Configure()
+    {
+        Scene.OnRemove<Player>((_, _) =>
+            {
+                foreach (var entity in Scene.Entities<Bee>())
+                    entity.Destroy();
+            }
+        );
+    }
+
     public override void FixedUpdate()
     {
         if (Inputs.BeeSpreadButton.IsDown)
@@ -39,7 +49,7 @@ public sealed class BeeMovementSystem : GameSystem
 
     private void Spread()
     {
-        var playerPosition = Scene.Player.Get<Body>().Position;
+        var playerPosition = Scene.Player.Position;
         var count = Scene.Table<Bee>().Count;
         var i = 0;
         foreach (

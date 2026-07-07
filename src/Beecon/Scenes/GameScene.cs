@@ -21,13 +21,13 @@ public sealed class GameScene : BaseScene
                     .Entity()
                     .SetPosition(
                         new Vector2(rnd.Next((int)Display.Width), rnd.Next((int)Display.Height))
-                            - Display.Size / 2
+                        - Display.Size / 2
                     )
             );
         }
 
         // Viruses
-        for (var i = 0; i < 50; i++)
+        for (var i = 0; i < 200; i++)
         {
             var rnd = Random.Shared;
             new VirusPrefab().Build(
@@ -35,7 +35,7 @@ public sealed class GameScene : BaseScene
                     .Entity()
                     .SetPosition(
                         new Vector2(rnd.Next((int)Display.Width), rnd.Next((int)Display.Height))
-                            - Display.Size / 2
+                        - Display.Size / 2
                     )
             );
         }

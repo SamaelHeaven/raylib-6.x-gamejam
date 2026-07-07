@@ -1,3 +1,3 @@
 ﻿namespace Beecon.Components;
 
-public struct Virus { }
+public sealed class Virus { }

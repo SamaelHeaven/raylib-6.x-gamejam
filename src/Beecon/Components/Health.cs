@@ -2,7 +2,7 @@
 
 public sealed class Health
 {
-    public Health(float max = 100)
+    public Health(float max)
     {
         Current = max;
         Max = max;

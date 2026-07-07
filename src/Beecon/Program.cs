@@ -17,6 +17,10 @@ var config = Config
         input.FullscreenButton = Inputs.FullscreenButton;
         input.ExitButton = Inputs.ExitButton;
     })
+    .Drawing(drawing =>
+    {
+        drawing.DefaultCulling = true;
+    })
     .World(world =>
     {
         world.DefaultGravity = Vector2.Zero;

@@ -7,11 +7,11 @@ namespace Beecon.Systems;
 public sealed class VirusSpawnSystem : GameSystem
 {
     private readonly Timer _spawnTimer = new(SpawnInterval);
-    public static int MaxViruses => 50;
-    public static int SpawnCount => 5;
-    public static TimeSpan SpawnInterval => TimeSpan.FromSeconds(0.5);
-    public static float SpawnMargin => 96;
-    public static float SpawnClearanceRadius => 16;
+    private static int MaxViruses => 50;
+    private static int SpawnCount => 5;
+    private static TimeSpan SpawnInterval => TimeSpan.FromSeconds(0.5);
+    private static float SpawnMargin => 96;
+    private static float SpawnClearanceRadius => 16;
 
     public override void Update()
     {

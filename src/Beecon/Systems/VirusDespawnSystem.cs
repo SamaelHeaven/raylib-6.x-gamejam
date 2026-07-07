@@ -4,7 +4,7 @@ namespace Beecon.Systems;
 
 public sealed class VirusDespawnSystem : GameSystem
 {
-    public static float DespawnDistance => 1200;
+    private static float DespawnDistance => 1200;
 
     public override void Update()
     {

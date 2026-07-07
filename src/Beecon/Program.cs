@@ -36,6 +36,7 @@ var config = Config
             new VirusMovementSystem(),
             new VirusSpawnSystem(),
             new VirusDespawnSystem(),
+            new VirusMergeSystem(),
             new DamageSystem(),
             new HealthSystem(),
         ]

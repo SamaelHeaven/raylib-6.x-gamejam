@@ -27,7 +27,7 @@ var config = Config
             new PhysicsSystem { Order = 1 },
             new PlayerMovementSystem(),
             new CameraSystem(),
-            new BeeSystem(),
+            new BeeMovementSystem(),
         ]
     )
     .Build();

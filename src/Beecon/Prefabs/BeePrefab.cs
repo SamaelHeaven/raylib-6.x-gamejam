@@ -21,6 +21,10 @@ public struct BeePrefab : IPrefab
             CircleShape.Make(10)
         );
 
-        entity.SetZIndex(500).Set(new Bee()).Set(body).Set(new Circle(Color.Yellow) { Scale = 20 });
+        entity
+            .SetZIndex(1500)
+            .Set(new Bee())
+            .Set(body)
+            .Set(new Circle(Color.Yellow) { Scale = 20 });
     }
 }

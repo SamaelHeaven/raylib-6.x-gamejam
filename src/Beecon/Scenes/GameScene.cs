@@ -13,7 +13,7 @@ public sealed class GameScene : BaseScene
         new PlayerPrefab().Build(Scene.Entity());
 
         // Bees
-        for (var i = 0; i < 5; i++)
+        for (var i = 0; i < 50; i++)
         {
             var rnd = Random.Shared;
             new BeePrefab().Build(

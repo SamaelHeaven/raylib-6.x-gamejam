@@ -11,8 +11,7 @@
     <InvariantGlobalization>true</InvariantGlobalization>
     <PublishTrimmed
       Condition="'$(Configuration)' == 'Release' or '$(RuntimeIdentifier)' == 'browser-wasm'"
-      >true
-        </PublishTrimmed>
+      >true</PublishTrimmed>
     <TrimMode>full</TrimMode>
     <SelfContained>true</SelfContained>
     <MSBuildEnableWorkloadResolver>false</MSBuildEnableWorkloadResolver>

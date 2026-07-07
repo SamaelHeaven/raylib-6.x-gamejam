@@ -15,7 +15,13 @@ public struct VirusPrefab : IPrefab
             .Set(body)
             .Set(new Circle(Color.Green) { Scale = 28 })
             .Set(new Health(50))
-            .Set(new Damage(15, TimeSpan.FromMilliseconds(200), ShapeFilterCategory.Player | ShapeFilterCategory.Bee));
+            .Set(
+                new Damage(
+                    15,
+                    TimeSpan.FromMilliseconds(200),
+                    ShapeFilterCategory.Player | ShapeFilterCategory.Bee
+                )
+            );
 
         var shape = CircleShape.Make(14);
         body.CreateShape(
@@ -24,8 +30,11 @@ public struct VirusPrefab : IPrefab
                 Filter = new ShapeFilter
                 {
                     Category = ShapeFilterCategory.Virus,
-                    Mask = ShapeFilterCategory.DefaultMask & ~ShapeFilterCategory.Player & ~ShapeFilterCategory.Bee
-                }
+                    Mask =
+                        ShapeFilterCategory.DefaultMask
+                        & ~ShapeFilterCategory.Player
+                        & ~ShapeFilterCategory.Bee,
+                },
             },
             shape
         );
@@ -34,7 +43,7 @@ public struct VirusPrefab : IPrefab
             new ShapeDef
             {
                 IsSensor = true,
-                Filter = new ShapeFilter { Category = ShapeFilterCategory.VirusSensor }
+                Filter = new ShapeFilter { Category = ShapeFilterCategory.VirusSensor },
             },
             shape
         );

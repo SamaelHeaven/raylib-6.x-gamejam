@@ -17,7 +17,8 @@ public sealed class BeeMovementSystem : GameSystem
 
     public override void Configure()
     {
-        Scene.OnRemove<Player>((_, _) =>
+        Scene.OnRemove<Player>(
+            (_, _) =>
             {
                 foreach (var entity in Scene.Entities<Bee>())
                     entity.Destroy();

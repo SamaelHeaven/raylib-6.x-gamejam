@@ -11,50 +11,27 @@ public sealed class VirusSpawnSystem : GameSystem
     public static TimeSpan SpawnInterval => TimeSpan.FromSeconds(0.5);
     public static float SpawnMargin => 96;
     public static float SpawnClearanceRadius => 16;
-    public static int MaxSpawnAttempts => 16;
 
     public override void Update()
     {
-        _spawnTimer.Duration = SpawnInterval;
         if (!_spawnTimer.Update())
             return;
         if (Scene.Table<Virus>().Count >= MaxViruses)
             return;
-        if (TryFindSpawnPosition(out var position))
-            new VirusPrefab().Build(Scene.Entity().SetPosition(position));
-    }
-
-    private bool TryFindSpawnPosition(out Vector2 position)
-    {
         var camera = Scene.Camera;
         var half = Display.Size / 2f / camera.Zoom;
         var extentX = half.X + SpawnMargin;
         var extentY = half.Y + SpawnMargin;
-        var world = Scene.World;
-        var filter = new ShapeFilter
-        {
-            Category = ShapeFilterCategory.Virus
-        };
-        for (var attempt = 0; attempt < MaxSpawnAttempts; attempt++)
-        {
-            position = camera.Target + EdgePoint(extentX, extentY);
-            var blocked = false;
-            world.Overlap(
-                CircleShape.Make(position, SpawnClearanceRadius),
-                _ =>
-                {
-                    blocked = true;
-                    return false;
-                },
-                filter
-            );
-
-            if (!blocked)
-                return true;
-        }
-
-        position = default;
-        return false;
+        var filter = new ShapeFilter { Category = ShapeFilterCategory.Virus };
+        if (
+            Scene.TryFindSpawnPosition(
+                () => camera.Target + EdgePoint(extentX, extentY),
+                SpawnClearanceRadius,
+                filter,
+                out var position
+            )
+        )
+            new VirusPrefab().Build(Scene.Entity().SetPosition(position));
     }
 
     private static Vector2 EdgePoint(float extentX, float extentY)
@@ -67,7 +44,7 @@ public sealed class VirusSpawnSystem : GameSystem
             0 => new Vector2(x, -extentY),
             1 => new Vector2(x, extentY),
             2 => new Vector2(-extentX, y),
-            _ => new Vector2(extentX, y)
+            _ => new Vector2(extentX, y),
         };
     }
 }

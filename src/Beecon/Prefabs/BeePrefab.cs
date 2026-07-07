@@ -24,8 +24,11 @@ public struct BeePrefab : IPrefab
                 Filter = new ShapeFilter
                 {
                     Category = ShapeFilterCategory.Bee,
-                    Mask = ShapeFilterCategory.DefaultMask & ~ShapeFilterCategory.Player & ~ShapeFilterCategory.Virus
-                }
+                    Mask =
+                        ShapeFilterCategory.DefaultMask
+                        & ~ShapeFilterCategory.Player
+                        & ~ShapeFilterCategory.Virus,
+                },
             },
             shape
         );
@@ -34,7 +37,7 @@ public struct BeePrefab : IPrefab
             new ShapeDef
             {
                 IsSensor = true,
-                Filter = new ShapeFilter { Category = ShapeFilterCategory.BeeSensor }
+                Filter = new ShapeFilter { Category = ShapeFilterCategory.BeeSensor },
             },
             shape
         );

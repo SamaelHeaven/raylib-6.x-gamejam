@@ -1,6 +1,9 @@
 ﻿namespace Beecon.Components;
 
-public sealed class Player { }
+public sealed class Player
+{
+    public int MaxBees { get; set; } = 5;
+}
 
 public static class ScenePlayerExtensions
 {

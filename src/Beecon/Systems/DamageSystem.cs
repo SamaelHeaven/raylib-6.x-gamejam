@@ -66,5 +66,9 @@ public sealed class DamageSystem : GameSystem
         }
     }
 
-    private record struct DamageContact(float Amount, TimeSpan Cooldown, TimeSpan Elapsed = default);
+    private record struct DamageContact(
+        float Amount,
+        TimeSpan Cooldown,
+        TimeSpan Elapsed = default
+    );
 }

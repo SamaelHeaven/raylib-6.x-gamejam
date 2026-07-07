@@ -28,6 +28,7 @@ var config = Config
             new PlayerMovementSystem(),
             new CameraSystem(),
             new BeeMovementSystem(),
+            new BeeSpawnSystem(),
             new VirusMovementSystem(),
             new VirusSpawnSystem(),
             new VirusDespawnSystem(),

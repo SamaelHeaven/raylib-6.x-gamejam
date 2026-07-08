@@ -50,10 +50,8 @@ public sealed class BeeMovementSystem : GameSystem
                 .OrderBy(entry => entry.Item1.Index)
         )
         {
-            var angle = 2f * MathF.PI / count * i;
             var targetPosition =
-                playerPosition
-                + new Vector2(MathF.Cos(angle), MathF.Sin(angle)) * Gameplay.Bee.SpreadRadius;
+                playerPosition + HexagonSpreadOffset((float)i / count, Gameplay.Bee.SpreadRadius);
             body.Arrive(
                 targetPosition,
                 Gameplay.Bee.MaxSpeed,
@@ -62,5 +60,18 @@ public sealed class BeeMovementSystem : GameSystem
             );
             i++;
         }
+    }
+
+    private static Vector2 HexagonSpreadOffset(float t, float radius)
+    {
+        const int sides = 6;
+        var scaled = t * sides;
+        var edgeIndex = (int)scaled;
+        var edgeT = scaled - edgeIndex;
+        var angleA = MathF.Tau / sides * edgeIndex;
+        var angleB = MathF.Tau / sides * ((edgeIndex + 1) % sides);
+        var vertexA = new Vector2(MathF.Cos(angleA), MathF.Sin(angleA)) * radius;
+        var vertexB = new Vector2(MathF.Cos(angleB), MathF.Sin(angleB)) * radius;
+        return vertexA + (vertexB - vertexA) * edgeT;
     }
 }

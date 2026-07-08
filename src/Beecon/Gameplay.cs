@@ -14,7 +14,7 @@ public static class Gameplay
         public static float Health => 1_000f;
         public static float Damage => 50f;
         public static TimeSpan DamageCooldown => TimeSpan.FromMilliseconds(200);
-        public static int InitialMaxBees => 5;
+        public static int InitialMaxBees => 4;
         public static float Acceleration => 5f;
         public static float MaxSpeed => 225f;
     }
@@ -77,7 +77,7 @@ public static class Gameplay
         public static int Sides => 6;
         public static float Radius => 150f;
         public static TimeSpan ChargeDuration => TimeSpan.FromSeconds(3);
-        public static int MaxBeesBonus => 2;
+        public static int MaxBeesBonus => 4;
         public static int SpawnMaxAttempts => 32;
     }
 }

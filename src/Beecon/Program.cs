@@ -43,6 +43,8 @@ var config = Config
             new TurretSystem(),
             new BulletDespawnSystem(),
             new DamageSystem(),
+            new ExperienceSystem(),
+            new ExperienceDropSystem(),
             new HealthSystem(),
         ]
     )

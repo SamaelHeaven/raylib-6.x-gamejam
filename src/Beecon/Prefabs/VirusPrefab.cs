@@ -27,7 +27,8 @@ public struct VirusPrefab(VirusType type = VirusType.Normal, int mergeCount = 0)
                     Gameplay.Virus.DamageCooldown,
                     ShapeCategory.Player | ShapeCategory.Bee
                 )
-            );
+            )
+            .Set(new ExperienceReward(ExperienceOf(Type), ExperienceColorOf(Type)));
 
         var shape = CircleShape.Make(radius);
         body.CreateShape(
@@ -79,6 +80,24 @@ public struct VirusPrefab(VirusType type = VirusType.Normal, int mergeCount = 0)
         {
             VirusType.Turret => Gameplay.Virus.TurretDamage,
             _ => Gameplay.Virus.Damage,
+        };
+    }
+
+    private static float ExperienceOf(VirusType type)
+    {
+        return type switch
+        {
+            VirusType.Turret => Gameplay.Virus.TurretExperience,
+            _ => Gameplay.Virus.ExperienceBonus,
+        };
+    }
+
+    private static Color ExperienceColorOf(VirusType type)
+    {
+        return type switch
+        {
+            VirusType.Turret => Visuals.Experience.TurretColor,
+            _ => Visuals.Experience.Color,
         };
     }
 }

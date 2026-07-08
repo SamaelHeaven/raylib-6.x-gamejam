@@ -25,6 +25,9 @@ public sealed class GameScene : GameSystem
         // Player
         new PlayerPrefab().Build(Scene.Entity());
 
+        // HUD
+        new HudPrefab().Build(Scene.Entity());
+
         // Edges
         new WallPrefab(new Vector2(mapSize.X, thickness)).Build(
             Scene.Entity().SetPosition(new Vector2(0, -halfMapSize.Y))

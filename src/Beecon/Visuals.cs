@@ -20,10 +20,6 @@ public static class Visuals
     {
         public static int ZIndex => 1;
         public static Vector2 Offset => new(0f, 40f);
-        public static Color BackgroundColor => Color.Brown;
-        public static Color FillColor => Color.Red;
-        public static float Width => 60f;
-        public static float Height => 6f;
     }
 
     public static class Bee
@@ -64,5 +60,12 @@ public static class Visuals
         public static Color DeactivatedColor => Color.DarkGray;
         public static Color ChargingColor => Color.SkyBlue;
         public static Color ActivatedColor => Color.Orange;
+    }
+
+    public static class Experience
+    {
+        public static int ZIndex => 1100;
+        public static Color Color => Color.SkyBlue;
+        public static Color TurretColor => Color.Violet;
     }
 }

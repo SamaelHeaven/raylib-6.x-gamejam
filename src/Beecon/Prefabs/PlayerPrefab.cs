@@ -29,7 +29,7 @@ public struct PlayerPrefab : IPrefab
                     .Entity()
                     .SetZIndex(Visuals.HealthBar.ZIndex)
                     .SetPosition(Visuals.HealthBar.Offset)
-                    .Set(new HealthBar());
+                    .Set(new UIHealthBar());
             });
 
         var shape = CircleShape.Make(Gameplay.Player.Radius);

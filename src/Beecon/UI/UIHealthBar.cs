@@ -2,19 +2,17 @@
 
 namespace Beecon.UI;
 
-public class HealthBar : UIContainer
+public class UIHealthBar : UIContainer
 {
     private readonly UIRectangle _bar;
 
-    public HealthBar()
+    public UIHealthBar()
     {
         Camera = Vigilance.Core.Camera.Scene;
         Add(
-            new UIRectangle(Visuals.HealthBar.BackgroundColor)
-            {
-                Height = Visuals.HealthBar.Height,
-                Width = Visuals.HealthBar.Width,
-            }[new UIRectangle(Visuals.HealthBar.FillColor) { Height = Unit.Full }.Tap(out _bar)]
+            new UIRectangle(Color.Brown) { Height = 6f, Width = 60f }[
+                new UIRectangle(Color.Red) { Height = Unit.Full }.Tap(out _bar)
+            ]
         );
     }
 

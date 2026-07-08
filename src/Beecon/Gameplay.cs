@@ -14,7 +14,7 @@ public static class Gameplay
         public static float Health => 1_000f;
         public static float Damage => 50f;
         public static TimeSpan DamageCooldown => TimeSpan.FromMilliseconds(200);
-        public static int InitialMaxBees => 4;
+        public static int InitialMaxBees => 6;
         public static float Acceleration => 5f;
         public static float MaxSpeed => 225f;
     }
@@ -54,6 +54,8 @@ public static class Gameplay
         public static float MergeGrowth => 4f;
         public static int MergesPerPromotion => 5;
         public static TimeSpan MergeInterval => TimeSpan.FromSeconds(1);
+        public static float ExperienceBonus => 5f;
+        public static float TurretExperience => 25f;
     }
 
     public static class Turret
@@ -69,6 +71,18 @@ public static class Gameplay
         public static TimeSpan DamageCooldown => TimeSpan.FromMilliseconds(200);
         public static float Speed => 450f;
         public static float DespawnMargin => 64f;
+    }
+
+    public static class Experience
+    {
+        public static float Radius => 8f;
+        public static float BaseRequired => 20f;
+        public static float RequiredGrowth => 1.5f;
+
+        public static float RequiredForLevel(int level)
+        {
+            return BaseRequired * MathF.Pow(RequiredGrowth, level - 1);
+        }
     }
 
     public static class Beacon

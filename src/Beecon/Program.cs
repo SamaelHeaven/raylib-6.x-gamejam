@@ -27,6 +27,7 @@ var config = Config
     })
     .Systems(() =>
         [
+            new DebugSystem(),
             new DrawableSystem(),
             new UISystem(),
             new PhysicsSystem { Order = 1 },

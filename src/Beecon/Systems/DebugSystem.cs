@@ -1,6 +1,6 @@
-﻿namespace Beecon.Scenes;
+﻿namespace Beecon.Systems;
 
-public abstract class BaseScene : GameSystem
+public sealed class DebugSystem : GameSystem
 {
     private PhysicsSystem PhysicsSystem => field ??= Scene.System<PhysicsSystem>();
 

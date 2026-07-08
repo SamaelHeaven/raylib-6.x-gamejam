@@ -2,7 +2,7 @@ using Beecon.Prefabs;
 
 namespace Beecon.Scenes;
 
-public sealed class GameScene : BaseScene
+public sealed class GameScene : GameSystem
 {
     public override void Initialize()
     {

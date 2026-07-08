@@ -21,7 +21,7 @@ public sealed class BeeSpawnSystem : GameSystem
         if (Scene.Table<Bee>().Count >= player.Get<Player>().MaxBees)
             return;
         var playerPosition = player.Position;
-        var filter = new ShapeFilter { Category = ShapeFilterCategory.Bee };
+        var filter = new ShapeFilter { Category = ShapeCategory.Bee };
         if (
             Scene.TryFindSpawnPosition(
                 () => playerPosition + RandomInCircle(SpawnRadius),

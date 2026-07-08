@@ -15,11 +15,7 @@ public sealed class VirusMergeSystem : GameSystem
     {
         _consumed.Clear();
         var world = Scene.World;
-        var filter = new ShapeFilter
-        {
-            Category = ShapeFilterCategory.Virus,
-            Mask = ShapeFilterCategory.Virus,
-        };
+        var filter = new ShapeFilter { Category = ShapeCategory.Virus, Mask = ShapeCategory.Virus };
         var overlapCallback = (Shape shape) =>
         {
             var other = shape.Entity;

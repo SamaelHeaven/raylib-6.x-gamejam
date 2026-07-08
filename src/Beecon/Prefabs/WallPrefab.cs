@@ -13,7 +13,7 @@ public struct WallPrefab(Vector2 size) : IPrefab
         entity.SetZIndex(500).Set(body).Set(new Rectangle(Color.DarkGray) { Scale = Size });
 
         body.CreateShape(
-            new ShapeDef { Filter = new ShapeFilter { Category = ShapeFilterCategory.Wall } },
+            new ShapeDef { Filter = new ShapeFilter { Category = ShapeCategory.Wall } },
             PolygonShape.MakeBox(Size)
         );
     }

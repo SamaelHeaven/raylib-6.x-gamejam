@@ -21,7 +21,7 @@ public sealed class VirusSpawnSystem : GameSystem
         var half = Display.Size / 2f / camera.Zoom;
         var extentX = half.X + SpawnMargin;
         var extentY = half.Y + SpawnMargin;
-        var filter = new ShapeFilter { Category = ShapeFilterCategory.Virus };
+        var filter = new ShapeFilter { Category = ShapeCategory.Virus };
         for (var spawned = 0; spawned < SpawnCount; spawned++)
         {
             if (Scene.Table<Virus>().Count >= MaxViruses)

@@ -23,7 +23,7 @@ public struct BulletPrefab(Vector2 velocity) : IPrefab
                 new Damage(
                     100,
                     TimeSpan.FromMilliseconds(200),
-                    ShapeFilterCategory.Player | ShapeFilterCategory.Bee
+                    ShapeCategory.Player | ShapeCategory.Bee
                 )
             );
 
@@ -33,7 +33,7 @@ public struct BulletPrefab(Vector2 velocity) : IPrefab
             new ShapeDef
             {
                 IsSensor = true,
-                Filter = new ShapeFilter { Category = ShapeFilterCategory.BulletSensor },
+                Filter = new ShapeFilter { Category = ShapeCategory.BulletSensor },
             },
             shape
         );

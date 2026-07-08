@@ -19,7 +19,7 @@ public struct BeePrefab : IPrefab
                 new Damage(
                     5,
                     TimeSpan.FromMilliseconds(200),
-                    ShapeFilterCategory.Virus | ShapeFilterCategory.BulletSensor
+                    ShapeCategory.Virus | ShapeCategory.BulletSensor
                 )
             );
 
@@ -29,11 +29,8 @@ public struct BeePrefab : IPrefab
             {
                 Filter = new ShapeFilter
                 {
-                    Category = ShapeFilterCategory.Bee,
-                    Mask =
-                        ShapeFilterCategory.DefaultMask
-                        & ~ShapeFilterCategory.Player
-                        & ~ShapeFilterCategory.Virus,
+                    Category = ShapeCategory.Bee,
+                    Mask = ShapeCategory.All & ~ShapeCategory.Player & ~ShapeCategory.Virus,
                 },
             },
             shape
@@ -43,7 +40,7 @@ public struct BeePrefab : IPrefab
             new ShapeDef
             {
                 IsSensor = true,
-                Filter = new ShapeFilter { Category = ShapeFilterCategory.BeeSensor },
+                Filter = new ShapeFilter { Category = ShapeCategory.BeeSensor },
             },
             shape
         );

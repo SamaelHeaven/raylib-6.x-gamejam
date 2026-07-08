@@ -8,8 +8,8 @@ public sealed class VirusMergeSystem : GameSystem
 {
     private ValueList<Entity> _cluster = [];
     private ValueHashSet<Entity> _consumed = [];
-    private static int MergeCount => 20;
-    private static float MergeRadius => 100;
+    public static int MergeCount => 20;
+    public static float MergeRadius => 100;
 
     public override void Update()
     {

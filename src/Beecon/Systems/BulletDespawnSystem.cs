@@ -4,7 +4,7 @@ namespace Beecon.Systems;
 
 public sealed class BulletDespawnSystem : GameSystem
 {
-    private static float Margin => 64f;
+    public static float Margin => 64f;
 
     public override void Update()
     {

@@ -23,4 +23,5 @@ public static class ShapeCategory
     public static ShapeFilterCategory VirusSensor { get; } = Category;
     public static ShapeFilterCategory PlayerSensor { get; } = Category;
     public static ShapeFilterCategory BulletSensor { get; } = Category;
+    public static ShapeFilterCategory Beacon { get; } = Category;
 }

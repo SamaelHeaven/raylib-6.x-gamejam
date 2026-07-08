@@ -6,13 +6,13 @@ namespace Beecon.Systems;
 
 public sealed class BeeMovementSystem : GameSystem
 {
-    private static float Acceleration => 8f;
-    private static float MaxSpeed => 325f;
-    private static float ArrivalRadius => 10f;
-    private static float SpreadAcceleration => Acceleration;
-    private static float SpreadMaxSpeed => MaxSpeed;
-    private static float SpreadArrivalRadius => ArrivalRadius;
-    private static float SpreadRadius => 120f;
+    public static float Acceleration => 8f;
+    public static float MaxSpeed => 325f;
+    public static float ArrivalRadius => 10f;
+    public static float SpreadAcceleration => Acceleration;
+    public static float SpreadMaxSpeed => MaxSpeed;
+    public static float SpreadArrivalRadius => ArrivalRadius;
+    public static float SpreadRadius => 120f;
 
     public override void Configure()
     {

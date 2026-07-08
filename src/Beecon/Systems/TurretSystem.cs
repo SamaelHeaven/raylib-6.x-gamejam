@@ -5,7 +5,7 @@ namespace Beecon.Systems;
 
 public sealed class TurretSystem : GameSystem
 {
-    private static float BulletSpeed => 450f;
+    public static float BulletSpeed => 450f;
 
     public override void Update()
     {

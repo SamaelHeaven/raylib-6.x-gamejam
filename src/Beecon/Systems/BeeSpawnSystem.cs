@@ -7,9 +7,9 @@ namespace Beecon.Systems;
 public sealed class BeeSpawnSystem : GameSystem
 {
     private readonly Timer _spawnTimer = new(SpawnInterval);
-    private static TimeSpan SpawnInterval => TimeSpan.FromSeconds(0.2);
-    private static float SpawnRadius => 60;
-    private static float SpawnClearanceRadius => 12;
+    public static TimeSpan SpawnInterval => TimeSpan.FromSeconds(0.2);
+    public static float SpawnRadius => 60;
+    public static float SpawnClearanceRadius => 12;
 
     public override void Update()
     {

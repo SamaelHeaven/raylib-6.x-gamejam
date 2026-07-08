@@ -34,6 +34,7 @@ var config = Config
             new CameraSystem(),
             new BeeMovementSystem(),
             new BeeSpawnSystem(),
+            new BeaconSystem(),
             new VirusMovementSystem(),
             new VirusSpawnSystem(),
             new VirusDespawnSystem(),

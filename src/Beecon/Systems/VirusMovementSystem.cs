@@ -5,8 +5,8 @@ namespace Beecon.Systems;
 
 public sealed class VirusMovementSystem : GameSystem
 {
-    private static float Acceleration => 5f;
-    private static float MaxSpeed => 75f;
+    public static float Acceleration => 5f;
+    public static float MaxSpeed => 75f;
 
     public override void FixedUpdate()
     {

@@ -42,7 +42,10 @@ public sealed class BeeMovementSystem : GameSystem
 
     private void Spread()
     {
-        var playerPosition = Scene.Player.Position;
+        var player = Scene.Player;
+        if (player.IsNull)
+            return;
+        var playerPosition = player.Position;
         var count = Scene.Table<Bee>().Count;
         var i = 0;
         foreach (

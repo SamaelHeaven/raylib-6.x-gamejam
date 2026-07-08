@@ -5,19 +5,16 @@ namespace Beecon.Prefabs;
 
 public struct BeaconPrefab : IPrefab
 {
-    public static Color DeactivatedColor => Color.DarkGray;
-    public static Color ActivatedColor => Color.SkyBlue;
-
     public void Build(Entity entity)
     {
         var body = entity.Scene.World.CreateBody(new BodyDef { Type = BodyType.Static });
 
         entity
-            .SetZIndex(100)
+            .SetZIndex(Visuals.Beacon.ZIndex)
             .Set(new Beacon())
             .Set(body)
             .Set(
-                new RegularPolygon(Gameplay.Beacon.Sides, DeactivatedColor)
+                new RegularPolygon(Gameplay.Beacon.Sides, Visuals.Beacon.DeactivatedColor)
                 {
                     Scale = Gameplay.Beacon.Radius * 2f,
                 }

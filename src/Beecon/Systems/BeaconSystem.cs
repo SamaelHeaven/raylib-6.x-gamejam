@@ -32,20 +32,39 @@ public sealed class BeaconSystem : GameSystem
         var playerPosition = player.Position;
         foreach (var (entity, beacon, body) in Entries<Beacon, Body>())
         {
-            if (beacon.Activated || !IsInside(body, playerPosition))
+            if (beacon.Activated)
                 continue;
-            var completed = beacon.ChargeTimer.Update();
-            entity.Get<RegularPolygon>().Fill = Color.Lerp(
-                BeaconPrefab.DeactivatedColor,
-                BeaconPrefab.ActivatedColor,
-                beacon.Progress
-            );
 
-            if (!completed)
-                continue;
-            beacon.Activated = true;
-            player.Get<Player>().MaxBees += Gameplay.Beacon.MaxBeesBonus;
+            var timer = beacon.ChargeTimer;
+            if (IsInside(body, playerPosition))
+            {
+                if (timer.Update())
+                {
+                    beacon.Activated = true;
+                    player.Get<Player>().MaxBees += Gameplay.Beacon.MaxBeesBonus;
+                }
+            }
+            else
+            {
+                Discharge(timer);
+            }
+
+            entity.Get<RegularPolygon>().Fill = beacon.Activated
+                ? Visuals.Beacon.ActivatedColor
+                : Color.Lerp(
+                    Visuals.Beacon.DeactivatedColor,
+                    Visuals.Beacon.ChargingColor,
+                    beacon.Progress
+                );
         }
+    }
+
+    private static void Discharge(Timer timer)
+    {
+        var rate = Gameplay.Beacon.ChargeDuration / Gameplay.Beacon.DischargeDuration;
+        timer.Elapsed -= Time.Delta * rate;
+        if (timer.Elapsed < TimeSpan.Zero)
+            timer.Elapsed = TimeSpan.Zero;
     }
 
     private static bool IsInside(Body body, Vector2 point)

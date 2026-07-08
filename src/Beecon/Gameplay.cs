@@ -39,7 +39,7 @@ public static class Gameplay
         public static float Radius => 14f;
         public static float Health => 50f;
         public static float Damage => 15f;
-        public static float TurretRadius => 100f;
+        public static float TurretRadius => 50f;
         public static float TurretHealth => 250f;
         public static float TurretDamage => 40f;
         public static TimeSpan DamageCooldown => TimeSpan.FromMilliseconds(200);
@@ -77,6 +77,7 @@ public static class Gameplay
         public static int Sides => 6;
         public static float Radius => 150f;
         public static TimeSpan ChargeDuration => TimeSpan.FromSeconds(3);
+        public static TimeSpan DischargeDuration => TimeSpan.FromSeconds(2);
         public static int MaxBeesBonus => 4;
         public static int SpawnMaxAttempts => 32;
     }

@@ -11,10 +11,10 @@ public struct PlayerPrefab : IPrefab
         var body = entity.Scene.World.CreateBody(new BodyDef { Type = BodyType.Dynamic });
 
         entity
-            .SetZIndex(1000)
+            .SetZIndex(Visuals.Player.ZIndex)
             .Set(new Player())
             .Set(body)
-            .Set(new Circle(Color.Gold) { Scale = Gameplay.Player.Radius * 2f })
+            .Set(new Circle(Visuals.Player.Color) { Scale = Gameplay.Player.Radius * 2f })
             .Set(new Health(Gameplay.Player.Health))
             .Set(
                 new Damage(
@@ -25,7 +25,11 @@ public struct PlayerPrefab : IPrefab
             )
             .Scope(scene =>
             {
-                scene.Entity().SetZIndex(1).SetPosition(new Vector2(0, 40)).Set(new HealthBar());
+                scene
+                    .Entity()
+                    .SetZIndex(Visuals.HealthBar.ZIndex)
+                    .SetPosition(Visuals.HealthBar.Offset)
+                    .Set(new HealthBar());
             });
 
         var shape = CircleShape.Make(Gameplay.Player.Radius);

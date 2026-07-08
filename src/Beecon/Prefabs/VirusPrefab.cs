@@ -13,10 +13,10 @@ public struct VirusPrefab(VirusType type = VirusType.Normal, int mergeCount = 0)
         var body = entity.Scene.World.CreateBody(new BodyDef { Type = BodyType.Dynamic });
 
         var radius = RadiusOf(Type, MergeCount);
-        var color = Type == VirusType.Normal ? Color.Green : Color.DarkGreen;
+        var color = Type == VirusType.Normal ? Visuals.Virus.Color : Visuals.Virus.TurretColor;
 
         entity
-            .SetZIndex(1300)
+            .SetZIndex(Visuals.Virus.ZIndex)
             .Set(new Virus { Type = Type, MergeCount = MergeCount })
             .Set(body)
             .Set(new Circle(color) { Scale = radius * 2f })

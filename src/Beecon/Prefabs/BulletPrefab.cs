@@ -14,10 +14,10 @@ public struct BulletPrefab(Vector2 velocity) : IPrefab
         );
 
         entity
-            .SetZIndex(1200)
+            .SetZIndex(Visuals.Bullet.ZIndex)
             .Set(new Bullet())
             .Set(body)
-            .Set(new Circle(Color.Orange) { Scale = Gameplay.Bullet.Radius * 2f })
+            .Set(new Circle(Visuals.Bullet.Color) { Scale = Gameplay.Bullet.Radius * 2f })
             .Set(new Health(Gameplay.Bullet.Health))
             .Set(
                 new Damage(

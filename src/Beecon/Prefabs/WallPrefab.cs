@@ -10,7 +10,10 @@ public struct WallPrefab(Vector2 size) : IPrefab
     {
         var body = entity.Scene.World.CreateBody(new BodyDef { Type = BodyType.Static });
 
-        entity.SetZIndex(500).Set(body).Set(new Rectangle(Color.DarkGray) { Scale = Size });
+        entity
+            .SetZIndex(Visuals.Wall.ZIndex)
+            .Set(body)
+            .Set(new Rectangle(Visuals.Wall.Color) { Scale = Size });
 
         body.CreateShape(
             new ShapeDef { Filter = new ShapeFilter { Category = ShapeCategory.Wall } },

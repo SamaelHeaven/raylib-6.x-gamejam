@@ -10,10 +10,10 @@ public struct BeePrefab : IPrefab
         var body = entity.Scene.World.CreateBody(new BodyDef { Type = BodyType.Dynamic });
 
         entity
-            .SetZIndex(1500)
+            .SetZIndex(Visuals.Bee.ZIndex)
             .Set(new Bee())
             .Set(body)
-            .Set(new Circle(Color.Yellow) { Scale = Gameplay.Bee.Radius * 2f })
+            .Set(new Circle(Visuals.Bee.Color) { Scale = Gameplay.Bee.Radius * 2f })
             .Set(new Health(Gameplay.Bee.Health))
             .Set(
                 new Damage(

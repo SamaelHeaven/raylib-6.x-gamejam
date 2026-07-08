@@ -6,6 +6,9 @@ public struct TurretPrefab : IPrefab
 {
     public void Build(Entity entity)
     {
-        entity.SetZIndex(1).Set(new Turret()).Set(new Circle(Color.DarkGray) { Scale = 60 });
+        entity
+            .SetZIndex(Visuals.Turret.ZIndex)
+            .Set(new Turret())
+            .Set(new Circle(Visuals.Turret.Color) { Scale = Visuals.Turret.Scale });
     }
 }

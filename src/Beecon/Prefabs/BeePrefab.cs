@@ -15,7 +15,13 @@ public struct BeePrefab : IPrefab
             .Set(body)
             .Set(new Circle(Color.Yellow) { Scale = 20 })
             .Set(new Health(150))
-            .Set(new Damage(5, TimeSpan.FromMilliseconds(200), ShapeFilterCategory.Virus));
+            .Set(
+                new Damage(
+                    5,
+                    TimeSpan.FromMilliseconds(200),
+                    ShapeFilterCategory.Virus | ShapeFilterCategory.BulletSensor
+                )
+            );
 
         var shape = CircleShape.Make(10);
         body.CreateShape(

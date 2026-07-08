@@ -10,5 +10,7 @@ public static class ShapeFilterCategoryExtensions
         public static ShapeFilterCategory BeeSensor => (ShapeFilterCategory)(1L << 4);
         public static ShapeFilterCategory Virus => (ShapeFilterCategory)(1L << 5);
         public static ShapeFilterCategory VirusSensor => (ShapeFilterCategory)(1L << 6);
+        public static ShapeFilterCategory PlayerSensor => (ShapeFilterCategory)(1L << 7);
+        public static ShapeFilterCategory BulletSensor => (ShapeFilterCategory)(1L << 8);
     }
 }

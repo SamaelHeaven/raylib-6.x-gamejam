@@ -54,5 +54,8 @@ public struct VirusPrefab(bool big = false) : IPrefab
             },
             shape
         );
+
+        if (Big)
+            entity.Scope(scene => new TurretPrefab().Build(scene.Entity()));
     }
 }

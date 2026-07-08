@@ -38,6 +38,8 @@ var config = Config
             new VirusSpawnSystem(),
             new VirusDespawnSystem(),
             new VirusMergeSystem(),
+            new TurretSystem(),
+            new BulletDespawnSystem(),
             new DamageSystem(),
             new HealthSystem(),
         ]

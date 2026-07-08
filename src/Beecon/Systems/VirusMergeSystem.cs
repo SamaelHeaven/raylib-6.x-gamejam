@@ -49,7 +49,7 @@ public sealed class VirusMergeSystem : GameSystem
                 }
 
                 elapsed += Time.FixedDelta;
-                if (elapsed >= Gameplay.Virus.MergeInterval)
+                if (elapsed >= MergeIntervalFor(va.Type))
                 {
                     Merge(first, va, second, vb);
                     partners.Remove(second);
@@ -69,9 +69,9 @@ public sealed class VirusMergeSystem : GameSystem
         var position = (a.Get<Body>().Position + b.Get<Body>().Position) / 2f;
         var type = va.Type;
         var mergeCount = Math.Max(va.MergeCount, vb.MergeCount) + 1;
-        if (mergeCount >= Gameplay.Virus.MergesPerPromotion)
+        if (mergeCount >= MergesPerPromotionFor(va.Type))
         {
-            type = (VirusType)((int)type + 1);
+            type = va.NextType();
             mergeCount = 0;
         }
 
@@ -83,6 +83,20 @@ public sealed class VirusMergeSystem : GameSystem
     private static bool CanMerge(Virus a, Virus b)
     {
         return a.CanMerge && b.CanMerge && a.Type == b.Type;
+    }
+
+    private static TimeSpan MergeIntervalFor(VirusType type)
+    {
+        return type == VirusType.Turret
+            ? Gameplay.Virus.TurretMergeInterval
+            : Gameplay.Virus.MergeInterval;
+    }
+
+    private static int MergesPerPromotionFor(VirusType type)
+    {
+        return type == VirusType.Turret
+            ? Gameplay.Virus.TurretMergesPerPromotion
+            : Gameplay.Virus.MergesPerPromotion;
     }
 
     private void Track(Entity a, Entity b)

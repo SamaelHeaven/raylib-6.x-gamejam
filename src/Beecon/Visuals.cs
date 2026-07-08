@@ -12,7 +12,7 @@ public static class Visuals
 
     public static class Player
     {
-        public static int ZIndex => 1000;
+        public static int ZIndex => 1_000;
         public static Color Color => Color.Gold;
     }
 
@@ -24,20 +24,23 @@ public static class Visuals
 
     public static class Bee
     {
-        public static int ZIndex => 1500;
+        public static int ZIndex => 1_500;
         public static Color Color => Color.Yellow;
     }
 
     public static class Virus
     {
-        public static int ZIndex => 1300;
+        public static int ZIndex => 1_300;
         public static Color Color => Color.Green;
         public static Color TurretColor => Color.DarkGreen;
+        public static Color ShieldColor => Color.DarkBlue;
+        public static int BarrierZIndex => 1;
+        public static Color BarrierColor => Color.SkyBlue;
     }
 
     public static class Bullet
     {
-        public static int ZIndex => 1200;
+        public static int ZIndex => 1_200;
         public static Color Color => Color.Purple;
     }
 
@@ -64,8 +67,14 @@ public static class Visuals
 
     public static class Experience
     {
-        public static int ZIndex => 1100;
+        public static int ZIndex => 1_100;
         public static Color Color => Color.SkyBlue;
         public static Color TurretColor => Color.Violet;
+        public static Color ShieldColor => Color.Blue;
+    }
+
+    public static class Hud
+    {
+        public static int ZIndex => 10_000;
     }
 }

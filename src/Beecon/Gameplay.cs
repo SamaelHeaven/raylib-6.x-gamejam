@@ -42,6 +42,9 @@ public static class Gameplay
         public static float TurretRadius => 50f;
         public static float TurretHealth => 250f;
         public static float TurretDamage => 40f;
+        public static float ShieldRadius => 60f;
+        public static float ShieldHealth => 500f;
+        public static float ShieldDamage => 60f;
         public static TimeSpan DamageCooldown => TimeSpan.FromMilliseconds(200);
         public static float Acceleration => 5f;
         public static float MaxSpeed => 75f;
@@ -54,8 +57,15 @@ public static class Gameplay
         public static float MergeGrowth => 4f;
         public static int MergesPerPromotion => 5;
         public static TimeSpan MergeInterval => TimeSpan.FromSeconds(1);
+        public static int TurretMergesPerPromotion => 3;
+        public static TimeSpan TurretMergeInterval => TimeSpan.FromSeconds(2.5);
         public static float ExperienceBonus => 5f;
         public static float TurretExperience => 25f;
+        public static float ShieldExperience => 60f;
+        public static float BarrierThickness => 10f;
+        public static float BarrierWidth => ShieldRadius * 2.4f;
+        public static float BarrierOffset => ShieldRadius + BarrierThickness * 0.5f;
+        public static float BarrierDensity => 1_000f;
     }
 
     public static class Turret
@@ -92,7 +102,7 @@ public static class Gameplay
         public static float Radius => 150f;
         public static TimeSpan ChargeDuration => TimeSpan.FromSeconds(3);
         public static TimeSpan DischargeDuration => TimeSpan.FromSeconds(2);
-        public static int MaxBeesBonus => 4;
+        public static int MaxBeesBonus => 10;
         public static int SpawnMaxAttempts => 32;
     }
 }

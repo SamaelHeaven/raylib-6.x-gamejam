@@ -6,6 +6,6 @@ public struct HudPrefab : IPrefab
 {
     public void Build(Entity entity)
     {
-        entity.SetPosition(Display.Size / 2).Set(new UIHud());
+        entity.SetZIndex(Visuals.Hud.ZIndex).SetPosition(Display.Size / 2).Set(new UIHud());
     }
 }

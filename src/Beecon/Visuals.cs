@@ -15,6 +15,13 @@ public static class Visuals
             field ??= Shader.Fragment.Resource("Shader.hexagon.frag.glsl");
     }
 
+    public static class Crt
+    {
+        public static float Warp => 0.10f;
+        public static float Scan => 0.3f;
+        public static Shader Shader => field ??= Shader.Fragment.Resource("Shader.crt.frag.glsl");
+    }
+
     public static class Player
     {
         public static int ZIndex => 1_000;

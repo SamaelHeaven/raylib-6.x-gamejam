@@ -32,6 +32,7 @@ var config = Config
     .Systems(() =>
         [
             new DebugSystem(),
+            new CrtSystem(),
             new DrawableSystem(),
             new SpriteBatchSystem(),
             new AnimationSystem(),

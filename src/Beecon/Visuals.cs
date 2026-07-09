@@ -20,7 +20,8 @@ public static class Visuals
         public static int ZIndex => 1_000;
         public static float Size => 64f;
         public static TimeSpan AnimationDelay => TimeSpan.FromMilliseconds(75);
-        public static TextureAtlas TextureAtlas => Bee.TextureAtlas;
+        public static Texture Texture => field ??= Texture.Resource("Texture.queen.png");
+        public static TextureAtlas TextureAtlas => field ??= new TextureAtlas(Texture, 4, 1);
     }
 
     public static class HealthBar

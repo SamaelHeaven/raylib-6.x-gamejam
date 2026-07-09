@@ -10,13 +10,15 @@ public class UITimer : UIContainer
     {
         Direction = Direction.TopToBottom;
         AlignItems = Align.Center;
-        Add(new UIText("00:00") { FontSize = 24f }.Tap(out _text));
+        Add(
+            new UIText("00:00") { FontSize = 32f, Components = [new UIDropShadow()] }.Tap(out _text)
+        );
     }
 
     protected override void OnUpdate()
     {
         var swarm = Entity.Scene.Swarm;
-        if (swarm is null)
+        if (swarm is null || Entity.Scene.Player.IsNull)
             return;
         var elapsed = swarm.Elapsed;
         _text.Value = $"{(int)elapsed.TotalMinutes:00}:{elapsed.Seconds:00}";

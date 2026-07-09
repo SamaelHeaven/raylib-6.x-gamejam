@@ -17,8 +17,8 @@ public static class Visuals
 
     public static class Crt
     {
-        public static float Warp => 0.10f;
-        public static float Scan => 0.25f;
+        public static float Warp => 0.12f;
+        public static float Scan => 0.15f;
         public static Shader Shader => field ??= Shader.Fragment.Resource("Shader.crt.frag.glsl");
     }
 
@@ -64,6 +64,18 @@ public static class Visuals
         public static TextureAtlas TextureAtlas => field ??= new TextureAtlas(Texture, 4, 1);
     }
 
+    public static class Shield
+    {
+        public static int ZIndex => Virus.ZIndex + 1;
+
+        public static Vector2 Size =>
+            new(Gameplay.Virus.BarrierThickness * 8f, Gameplay.Virus.BarrierWidth * 2f);
+
+        public static TimeSpan AnimationDelay => TimeSpan.FromMilliseconds(75);
+        public static Texture Texture => field ??= Texture.Resource("Texture.shield.png");
+        public static TextureAtlas TextureAtlas => field ??= new TextureAtlas(Texture, 3, 1);
+    }
+
     public static class Bullet
     {
         public static int ZIndex => 1_200;
@@ -72,6 +84,7 @@ public static class Visuals
         public static Texture Texture => field ??= Texture.Resource("Texture.bullet.png");
         public static TextureAtlas TextureAtlas => field ??= new TextureAtlas(Texture, 2, 1);
         public static float RotationOffset => 90f;
+        public static float BackOffset => 10f;
     }
 
     public static class Turret

@@ -12,7 +12,12 @@ public struct VirusPrefab(VirusType type = VirusType.Normal, int mergeCount = 0)
     private static BatchedSpriteAnimationFrame[] AnimationFrames =>
         field ??= Visuals.Virus.TextureAtlas.GetBatchedSpriteAnimationFrames(0, 3).ToArray();
 
+    private static BatchedSpriteAnimationFrame[] ShieldAnimationFrames =>
+        field ??= Visuals.Shield.TextureAtlas.GetBatchedSpriteAnimationFrames(0, 2).ToArray();
+
     private record struct SpriteBatchSingleton(SpriteBatch SpriteBatch);
+
+    private record struct ShieldSpriteBatchSingleton(SpriteBatch SpriteBatch);
 
     public void Build(Entity entity)
     {
@@ -104,13 +109,33 @@ public struct VirusPrefab(VirusType type = VirusType.Normal, int mergeCount = 0)
             PolygonShape.MakeBox(size, offset, 0f)
         );
 
+        if (!entity.Scene.TryGetSingleton(out ShieldSpriteBatchSingleton batchSingleton))
+        {
+            batchSingleton = new ShieldSpriteBatchSingleton(
+                new SpriteBatch(Visuals.Shield.Texture)
+            );
+            entity
+                .Scene.Entity()
+                .SetZIndex(Visuals.Shield.ZIndex)
+                .Set(batchSingleton)
+                .Set(batchSingleton.SpriteBatch);
+        }
+
         var visual = Entity.Null;
         entity.Scope(scene =>
             visual = scene
                 .Entity()
-                .SetZIndex(Visuals.Virus.BarrierZIndex)
+                .SetZIndex(Visuals.Shield.ZIndex)
                 .SetPosition(offset)
-                .Set(new Rectangle(Visuals.Virus.BarrierColor) { Scale = size })
+                .Set(
+                    new BatchedSprite(
+                        batchSingleton.SpriteBatch,
+                        new SpriteInstance { Scale = Visuals.Shield.Size }
+                    )
+                )
+                .Set(
+                    new BatchedSpriteAnimation(ShieldAnimationFrames, Visuals.Shield.AnimationDelay)
+                )
         );
         entity.Set(new Shield { Visual = visual });
     }

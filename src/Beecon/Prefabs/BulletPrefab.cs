@@ -39,6 +39,7 @@ public struct BulletPrefab(Vector2 velocity) : IPrefab
                     new SpriteInstance
                     {
                         Scale = Visuals.Bullet.Size,
+                        Position = Velocity.Normalize() * Visuals.Bullet.BackOffset,
                         Rotation =
                             MathF.Atan2(Velocity.Y, Velocity.X) * (180f / MathF.PI)
                             + Visuals.Bullet.RotationOffset,

@@ -72,7 +72,7 @@ public static class Gameplay
         public static float BarrierThickness => 10f;
         public static float BarrierWidth => ShieldRadius * 2.4f;
         public static float BarrierOffset => ShieldRadius + BarrierThickness * 1.5f;
-        public static float BarrierDensity => 1_000f;
+        public static float BarrierDensity => 10_000f;
 
         public static int SpawnCountAt(TimeSpan elapsed, bool swarm)
         {
@@ -105,7 +105,7 @@ public static class Gameplay
 
     public static class Bullet
     {
-        public static float Radius => 6f;
+        public static float Radius => 4f;
         public static float Health => 10f;
         public static float Damage => 100f;
         public static TimeSpan DamageCooldown => TimeSpan.FromMilliseconds(200);

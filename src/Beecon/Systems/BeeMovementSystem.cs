@@ -27,7 +27,14 @@ public sealed class BeeMovementSystem : GameSystem
 
     public override void FixedUpdate()
     {
-        if (Inputs.BeeSpreadButton.IsDown)
+        var player = Scene.Player;
+        if (
+            (
+                !player.IsNull
+                && player.Get<Player>().Stats.AvailablePoints > 0
+                && Scene.Hud.StatMenu.IsMouseInside
+            ) || Inputs.BeeSpreadButton.IsDown
+        )
             Spread();
         else
             FollowMouse();

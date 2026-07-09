@@ -2,6 +2,8 @@
 
 public class UIHud : UIContainer
 {
+    public readonly UIStatMenu StatMenu;
+
     public UIHud()
     {
         Add(
@@ -11,7 +13,7 @@ public class UIHud : UIContainer
                 Direction = Direction.TopToBottom,
                 Justify = Justify.SpaceBetween,
                 AlignItems = Align.Start,
-            }[new UIExperienceBar(), new UIStatMenu()]
+            }[new UIExperienceBar(), new UIStatMenu().Tap(out StatMenu)]
         );
     }
 }

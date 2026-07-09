@@ -1,4 +1,6 @@
-﻿namespace Beecon.Components;
+﻿using Beecon.UI;
+
+namespace Beecon.Components;
 
 public sealed class Player
 {
@@ -32,5 +34,7 @@ public static class ScenePlayerExtensions
     extension(Scene scene)
     {
         public Entity Player => scene.Entities<Player>().AsValueEnumerable().FirstOrDefault();
+
+        public UIHud Hud => scene.Components<UIHud>().AsValueEnumerable().First();
     }
 }

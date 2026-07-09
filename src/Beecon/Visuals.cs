@@ -67,8 +67,11 @@ public static class Visuals
     public static class Bullet
     {
         public static int ZIndex => 1_200;
-        public static float Size => 12f;
-        public static Color Color => Color.Purple;
+        public static Vector2 Size => (12, 24f);
+        public static TimeSpan AnimationDelay => TimeSpan.FromMilliseconds(75);
+        public static Texture Texture => field ??= Texture.Resource("Texture.bullet.png");
+        public static TextureAtlas TextureAtlas => field ??= new TextureAtlas(Texture, 2, 1);
+        public static float RotationOffset => 90f;
     }
 
     public static class Turret

@@ -18,7 +18,7 @@ public static class Visuals
     public static class Crt
     {
         public static float Warp => 0.10f;
-        public static float Scan => 0.3f;
+        public static float Scan => 0.25f;
         public static Shader Shader => field ??= Shader.Fragment.Resource("Shader.crt.frag.glsl");
     }
 
@@ -49,12 +49,15 @@ public static class Visuals
     public static class Virus
     {
         public static int ZIndex => 1_300;
-        public static Color Color => Color.Green;
-        public static Color TurretColor => Color.DarkGreen;
-        public static Color ShieldColor => Color.DarkBlue;
-        public static float SizeScale => 2f;
+        public static Color Tint => Color.White;
+        public static Color TurretTint => "#B9F8CF";
+        public static Color ShieldTint => "#96F7E4";
+        public static float SizeScale => 3f;
         public static int BarrierZIndex => 1;
         public static Color BarrierColor => Color.SkyBlue;
+        public static TimeSpan AnimationDelay => TimeSpan.FromMilliseconds(75);
+        public static Texture Texture => field ??= Texture.Resource("Texture.virus.png");
+        public static TextureAtlas TextureAtlas => field ??= new TextureAtlas(Texture, 4, 1);
     }
 
     public static class Bullet

@@ -40,13 +40,13 @@ public static class Gameplay
 
     public static class Virus
     {
-        public static float Radius => 14f;
+        public static float Radius => 8f;
         public static float Health => 50f;
         public static float Damage => 15f;
-        public static float TurretRadius => 50f;
+        public static float TurretRadius => 30f;
         public static float TurretHealth => 250f;
         public static float TurretDamage => 40f;
-        public static float ShieldRadius => 60f;
+        public static float ShieldRadius => 50f;
         public static float ShieldHealth => 500f;
         public static float ShieldDamage => 60f;
         public static TimeSpan DamageCooldown => TimeSpan.FromMilliseconds(200);

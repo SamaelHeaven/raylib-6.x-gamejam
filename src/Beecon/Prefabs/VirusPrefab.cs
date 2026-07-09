@@ -1,5 +1,6 @@
 using Beecon.Components;
 using Beecon.Physics;
+using Beecon.Scenes;
 
 namespace Beecon.Prefabs;
 
@@ -8,8 +9,23 @@ public struct VirusPrefab(VirusType type = VirusType.Normal, int mergeCount = 0)
     public VirusType Type { get; set; } = type;
     public int MergeCount { get; set; } = mergeCount;
 
+    private static BatchedSpriteAnimationFrame[] AnimationFrames =>
+        field ??= Visuals.Virus.TextureAtlas.GetBatchedSpriteAnimationFrames(0, 3).ToArray();
+
+    private record struct SpriteBatchSingleton(SpriteBatch SpriteBatch);
+
     public void Build(Entity entity)
     {
+        if (!entity.Scene.TryGetSingleton(out SpriteBatchSingleton batchSingleton))
+        {
+            batchSingleton = new SpriteBatchSingleton(new SpriteBatch(Visuals.Virus.Texture));
+            entity
+                .Scene.Entity()
+                .SetZIndex(Visuals.Virus.ZIndex)
+                .Set(batchSingleton)
+                .Set(batchSingleton.SpriteBatch);
+        }
+
         var body = entity.Scene.World.CreateBody(
             new BodyDef { Type = BodyType.Dynamic, LockAngularZ = true }
         );
@@ -20,7 +36,17 @@ public struct VirusPrefab(VirusType type = VirusType.Normal, int mergeCount = 0)
             .SetZIndex(Visuals.Virus.ZIndex)
             .Set(new Virus { Type = Type, MergeCount = MergeCount })
             .Set(body)
-            .Set(new Circle(ColorOf(Type)) { Scale = radius * Visuals.Virus.SizeScale })
+            .Set(
+                new BatchedSprite(
+                    batchSingleton.SpriteBatch,
+                    new SpriteInstance
+                    {
+                        Tint = ColorOf(Type),
+                        Scale = radius * Visuals.Virus.SizeScale,
+                    }
+                )
+            )
+            .Set(new BatchedSpriteAnimation(AnimationFrames, Visuals.Virus.AnimationDelay))
             .Set(new Health(HealthOf(Type)))
             .Set(
                 new Damage(
@@ -138,9 +164,9 @@ public struct VirusPrefab(VirusType type = VirusType.Normal, int mergeCount = 0)
     {
         return type switch
         {
-            VirusType.Shield => Visuals.Virus.ShieldColor,
-            VirusType.Turret => Visuals.Virus.TurretColor,
-            _ => Visuals.Virus.Color,
+            VirusType.Shield => Visuals.Virus.ShieldTint,
+            VirusType.Turret => Visuals.Virus.TurretTint,
+            _ => Visuals.Virus.Tint,
         };
     }
 

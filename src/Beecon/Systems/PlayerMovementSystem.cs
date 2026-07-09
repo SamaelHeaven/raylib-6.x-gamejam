@@ -16,7 +16,18 @@ public sealed class PlayerMovementSystem : GameSystem
 
     public override void FixedUpdate()
     {
-        foreach (var (_, player, body) in Entries<Player, Body>())
+        foreach (var (entity, player, body) in Entries<Player, Body>())
+        {
             body.Seek(_movement * player.Stats.PlayerSpeed, Gameplay.Player.Acceleration);
+            if (_movement == Vector2.Zero)
+                continue;
+            var target = MathF.Atan2(_movement.Y, _movement.X) * (180f / MathF.PI) + 90f;
+            var sprite = entity.Get<Sprite>();
+            sprite.Rotation = float.LerpAngle(
+                sprite.Rotation,
+                target,
+                Gameplay.Player.RotationSmoothing
+            );
+        }
     }
 }

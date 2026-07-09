@@ -18,6 +18,7 @@ public static class Gameplay
         public static int InitialMaxBees => 6;
         public static float Acceleration => 5f;
         public static float MaxSpeed => 225f;
+        public static float RotationSmoothing => 0.15f;
     }
 
     public static class Bee

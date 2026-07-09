@@ -1,4 +1,5 @@
 using Beecon.Components;
+using Beecon.Scenes;
 
 namespace Beecon.UI;
 

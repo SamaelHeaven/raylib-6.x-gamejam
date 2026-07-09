@@ -1,4 +1,5 @@
 using Beecon.Components;
+using Beecon.Scenes;
 
 namespace Beecon.UI;
 
@@ -31,7 +32,7 @@ public class UIStatRow : UIContainer
                     out _arrowSprite
                 ),
                 new UIContainer { Direction = Direction.TopToBottom, GapY = 3 }[
-                    new UIText(type.Label, Color.White)
+                    new UIText($"[{(int)_type + 1}] {type.Label}", Color.White)
                     {
                         FontSize = 14f,
                         Components = [new UIDropShadow()],
@@ -50,10 +51,9 @@ public class UIStatRow : UIContainer
     {
         _arrowSprite.Scale = 1;
         _arrowSprite.Tint = Color.DarkGray;
-        var player = Entity.Scene.Player;
-        if (player.IsNull)
+        var stats = Entity.Scene.Stats;
+        if (stats is null)
             return;
-        var stats = player.Get<Player>().Stats;
         var level = stats.LevelOf(_type);
         for (var i = 0; i < _pips.Length; i++)
             _pips[i].Fill = i < level ? _type.Color : "#57534D";
@@ -68,13 +68,25 @@ public class UIStatRow : UIContainer
         {
             _arrowTween.Reset();
         }
+
+        if (canAllocate && Keyboard.IsKeyPressed(_type.Key))
+            stats.Allocate(_type);
     }
 
     protected override void OnClick()
     {
-        var player = Entity.Scene.Player;
-        if (player.IsNull)
-            return;
-        player.Get<Player>().Stats.Allocate(_type);
+        Entity.Scene.Stats?.Allocate(_type);
+    }
+
+    protected override void OnMouseEnter()
+    {
+        var stats = Entity.Scene.Stats;
+        if (stats is not null && stats.CanAllocate(_type))
+            Mouse.Cursor = Cursor.Pointer;
+    }
+
+    protected override void OnMouseLeave()
+    {
+        Mouse.Cursor = Cursor.Default;
     }
 }

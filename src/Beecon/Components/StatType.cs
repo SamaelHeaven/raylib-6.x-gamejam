@@ -41,5 +41,7 @@ public static class StatTypeExtensions
                 StatType.HealthRegen => "#F4A8FF",
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
             };
+
+        public Key Key => (Key)((int)type + (int)Key.One);
     }
 }

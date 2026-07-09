@@ -1,24 +1,30 @@
 using Beecon.Components;
+using Beecon.Scenes;
 
 namespace Beecon.UI;
 
 public class UIExperienceBar : UIContainer
 {
     private readonly UIRectangle _fill;
+    private readonly Tween _fillTween = new(TimeSpan.FromMilliseconds(250), cycleCount: 1);
     private readonly UIText _level;
+    private float _displayedPercent;
+    private float _fromPercent;
+    private float _targetPercent = -1f;
 
     public UIExperienceBar()
     {
         Width = Unit.Full;
         Add(
             new UIContainer { Width = Unit.Full, Padding = 4 }[
-                new UIRectangle(Color.DarkGray)
+                new UIRectangle("#44403BBF")
                 {
                     Width = Unit.Full,
                     Padding = 6,
-                    Radius = 4,
-                    Stroke = Color.Gray,
+                    Radius = 12,
+                    Stroke = "#79716BBF",
                     StrokeWidth = 2,
+                    Components = [new UIDropShadow()],
                 }[
                     new UIContainer
                     {
@@ -26,10 +32,11 @@ public class UIExperienceBar : UIContainer
                         Direction = Direction.LeftToRight,
                         Justify = Justify.SpaceBetween,
                     }[
-                        new UIRectangle(Color.SkyBlue)
+                        new UIRectangle("#FFA1AD")
                         {
                             Position = PositionType.Absolute,
                             Height = Unit.Full,
+                            Radius = 12,
                         }.Tap(out _fill),
                         new UIContainer(),
                         new UIText(Color.White) { FontSize = 20f }.Tap(out _level)
@@ -45,7 +52,17 @@ public class UIExperienceBar : UIContainer
         if (player.IsNull)
             return;
         var state = player.Get<Player>();
-        _fill.Width = Unit.Percent(state.ExperiencePercent);
+        var target = state.ExperiencePercent;
+        if (MathF.Abs(target - _targetPercent) > 0.01f)
+        {
+            _fromPercent = _displayedPercent;
+            _targetPercent = target;
+            _fillTween.Reset();
+        }
+
+        _fillTween.Update();
+        _displayedPercent = _fillTween.Interpolate(_fromPercent, _targetPercent, Ease.OutCubic);
+        _fill.Width = Unit.Percent(_displayedPercent);
         _level.Value = $"Lv {state.Level}";
     }
 }

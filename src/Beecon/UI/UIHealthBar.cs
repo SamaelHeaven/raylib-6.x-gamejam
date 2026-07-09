@@ -10,9 +10,16 @@ public class UIHealthBar : UIContainer
     {
         Camera = Vigilance.Core.Camera.Scene;
         Add(
-            new UIRectangle(Color.Brown) { Height = 6f, Width = 60f }[
-                new UIRectangle(Color.Red) { Height = Unit.Full }.Tap(out _bar)
-            ]
+            new UIRectangle("#460809")
+            {
+                Height = 6f,
+                Width = 60f,
+                Components = [new UIDropShadow()],
+                Stroke = "#79716B",
+                StrokeWidth = 1,
+                Padding = 1,
+                Radius = 2,
+            }[new UIRectangle("#E7180B") { Height = Unit.Full, Radius = 8 }.Tap(out _bar)]
         );
     }
 

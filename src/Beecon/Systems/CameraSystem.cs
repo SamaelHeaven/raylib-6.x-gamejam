@@ -1,4 +1,4 @@
-﻿using Beecon.Components;
+﻿using Beecon.Scenes;
 
 namespace Beecon.Systems;
 

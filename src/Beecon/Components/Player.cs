@@ -1,6 +1,4 @@
-﻿using Beecon.UI;
-
-namespace Beecon.Components;
+﻿namespace Beecon.Components;
 
 public sealed class Player
 {
@@ -26,15 +24,5 @@ public sealed class Player
             Level++;
             Stats.GrantPoint();
         }
-    }
-}
-
-public static class ScenePlayerExtensions
-{
-    extension(Scene scene)
-    {
-        public Entity Player => scene.Entities<Player>().AsValueEnumerable().FirstOrDefault();
-
-        public UIHud Hud => scene.Components<UIHud>().AsValueEnumerable().First();
     }
 }

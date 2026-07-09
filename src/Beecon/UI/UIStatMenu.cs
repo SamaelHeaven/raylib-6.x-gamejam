@@ -11,13 +11,13 @@ public class UIStatMenu : UIContainer
     {
         Add(
             new UIContainer { Padding = 12 }[
-                new UIRectangle("#44403BBF")
+                new UIRectangle("#44403BB3")
                 {
                     Padding = 8,
                     Radius = 12,
                     GapY = 4,
                     Direction = Direction.TopToBottom,
-                    Stroke = "#79716BBF",
+                    Stroke = "#79716BB3",
                     StrokeWidth = 2,
                     Components = [new UIDropShadow()],
                 }[

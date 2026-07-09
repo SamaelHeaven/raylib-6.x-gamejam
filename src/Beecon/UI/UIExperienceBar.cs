@@ -17,12 +17,12 @@ public class UIExperienceBar : UIContainer
         Width = Unit.Full;
         Add(
             new UIContainer { Width = Unit.Full, Padding = 4 }[
-                new UIRectangle("#44403BBF")
+                new UIRectangle("#44403BB3")
                 {
                     Width = Unit.Full,
                     Padding = 6,
                     Radius = 12,
-                    Stroke = "#79716BBF",
+                    Stroke = "#79716BB3",
                     StrokeWidth = 2,
                     Components = [new UIDropShadow()],
                 }[

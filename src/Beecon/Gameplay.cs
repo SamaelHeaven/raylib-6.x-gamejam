@@ -40,7 +40,7 @@ public static class Gameplay
 
     public static class Virus
     {
-        public static float Radius => 8f;
+        public static float Radius => 12f;
         public static float Health => 50f;
         public static float Damage => 15f;
         public static float TurretRadius => 30f;

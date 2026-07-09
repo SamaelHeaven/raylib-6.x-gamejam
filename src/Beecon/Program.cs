@@ -20,6 +20,7 @@ var config = Config
     .Drawing(drawing =>
     {
         drawing.DefaultCulling = true;
+        drawing.RenderTexturePoolLifetime = TimeSpan.FromSeconds(100);
     })
     .Font(font =>
     {
@@ -57,6 +58,7 @@ var config = Config
             new ExperienceDropSystem(),
             new StatSystem(),
             new HealthSystem(),
+            new PlayerDamageFlashSystem(),
         ]
     )
     .Build();

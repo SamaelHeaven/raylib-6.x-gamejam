@@ -29,6 +29,10 @@ public static class Visuals
         public static TimeSpan AnimationDelay => TimeSpan.FromMilliseconds(75);
         public static Texture Texture => field ??= Texture.Resource("Texture.queen.png");
         public static TextureAtlas TextureAtlas => field ??= new TextureAtlas(Texture, 4, 1);
+        public static Color DamageFlashFrom => "#A1A1A1";
+        public static Color DamageFlashTo => "#FF6467";
+        public static TimeSpan DamageFlashInterval => TimeSpan.FromMilliseconds(90);
+        public static int DamageFlashCycles => 4;
     }
 
     public static class HealthBar

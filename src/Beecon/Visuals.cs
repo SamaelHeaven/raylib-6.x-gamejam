@@ -87,13 +87,6 @@ public static class Visuals
         public static float BackOffset => 10f;
     }
 
-    public static class Turret
-    {
-        public static int ZIndex => 1;
-        public static Color Color => Color.DarkGray;
-        public static float Scale => 60f;
-    }
-
     public static class Wall
     {
         public static int ZIndex => 500;

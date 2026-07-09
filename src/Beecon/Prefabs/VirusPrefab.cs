@@ -85,7 +85,7 @@ public struct VirusPrefab(VirusType type = VirusType.Normal, int mergeCount = 0)
         );
 
         if (Type is VirusType.Turret or VirusType.Shield)
-            entity.Scope(scene => new TurretPrefab().Build(scene.Entity()));
+            entity.Scope(scene => scene.Entity().Set(new Turret()));
 
         if (Type is VirusType.Shield)
             BuildShield(entity, body);

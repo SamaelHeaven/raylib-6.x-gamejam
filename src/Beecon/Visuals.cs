@@ -5,9 +5,13 @@ public static class Visuals
     public static class Background
     {
         public static int ZIndex => -1;
-        public static Color Color => Color.Gray;
-        public static float CellSize => 64f;
-        public static float Thickness => 2f;
+        public static Color BackgroundColor => Color.DarkBrown;
+        public static Color LineColor => "#432004";
+        public static float HexSize => 96f;
+        public static float LineThickness => 4f;
+        public static float ParallaxFactor => 0.5f;
+        public static Shader Shader =>
+            field ??= Shader.Fragment.Resource("Shader.hexagon.frag.glsl");
     }
 
     public static class Player

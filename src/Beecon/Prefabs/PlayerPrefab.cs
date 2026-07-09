@@ -8,7 +8,9 @@ public struct PlayerPrefab : IPrefab
 {
     public void Build(Entity entity)
     {
-        var body = entity.Scene.World.CreateBody(new BodyDef { Type = BodyType.Dynamic });
+        var body = entity.Scene.World.CreateBody(
+            new BodyDef { Type = BodyType.Dynamic, LockAngularZ = true }
+        );
 
         entity
             .SetZIndex(Visuals.Player.ZIndex)

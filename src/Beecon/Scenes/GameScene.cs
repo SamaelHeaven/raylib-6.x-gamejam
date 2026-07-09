@@ -10,18 +10,6 @@ public sealed class GameScene : GameSystem
         var halfMapSize = mapSize / 2f;
         var thickness = Gameplay.Map.WallThickness;
 
-        // Background
-        Scene
-            .Entity()
-            .SetZIndex(Visuals.Background.ZIndex)
-            .Set(
-                new Grid(Visuals.Background.CellSize, Visuals.Background.Color)
-                {
-                    Scale = mapSize,
-                    Thick = Visuals.Background.Thickness,
-                }
-            );
-
         // Player
         new PlayerPrefab().Build(Scene.Entity());
 

@@ -39,6 +39,7 @@ var config = Config
             new PhysicsSystem { Order = 1 },
             new PlayerMovementSystem(),
             new CameraSystem(),
+            new BackgroundSystem(),
             new BeeMovementSystem(),
             new BeeSpawnSystem(),
             new BeaconSystem(),

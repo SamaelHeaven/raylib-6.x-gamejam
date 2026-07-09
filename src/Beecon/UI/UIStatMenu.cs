@@ -18,6 +18,7 @@ public class UIStatMenu : UIContainer
                     Direction = Direction.TopToBottom,
                     Stroke = "#79716BBF",
                     StrokeWidth = 2,
+                    Components = [new UIDropShadow()],
                 }[
                     new UISprite(Texture.Resource("Texture.stat.png"))
                     {
@@ -25,7 +26,11 @@ public class UIStatMenu : UIContainer
                         Position = PositionType.Absolute,
                         Translate = -10,
                     },
-                    new UIText { MarginHorizontal = Unit.Auto }.Tap(out _points)
+                    new UIText
+                    {
+                        MarginHorizontal = Unit.Auto,
+                        Components = [new UIDropShadow()],
+                    }.Tap(out _points)
                 ][StatType.All.Select(type => new UIStatRow(type))]
             ]
         );

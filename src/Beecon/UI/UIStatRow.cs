@@ -11,7 +11,7 @@ public class UIStatRow : UIContainer
         alternateDirection: true
     );
 
-    private readonly UIRectangle[] _pips = new UIRectangle[Gameplay.Stats.MaxLevel];
+    private readonly UIPolygon[] _pips = new UIPolygon[Gameplay.Stats.MaxLevel];
     private readonly StatType _type;
 
     public UIStatRow(StatType type)
@@ -31,18 +31,15 @@ public class UIStatRow : UIContainer
                     out _arrowSprite
                 ),
                 new UIContainer { Direction = Direction.TopToBottom, GapY = 3 }[
-                    new UIText(type.Label, Color.White) { FontSize = 14f },
+                    new UIText(type.Label, Color.White)
+                    {
+                        FontSize = 14f,
+                        Components = [new UIDropShadow()],
+                    },
                     new UIContainer { Direction = Direction.LeftToRight, GapX = 2 }[
                         Enumerable
                             .Range(0, _pips.Length)
-                            .Select(i =>
-                                new UIRectangle
-                                {
-                                    Width = 10,
-                                    Height = 8,
-                                    Radius = 2,
-                                }.Tap(out _pips[i])
-                            )
+                            .Select(i => new UIPolygon(6) { Size = 10 }.Tap(out _pips[i]))
                     ]
                 ]
             ]

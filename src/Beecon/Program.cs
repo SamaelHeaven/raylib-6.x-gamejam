@@ -51,6 +51,7 @@ var config = Config
             new BulletDespawnSystem(),
             new DamageSystem(),
             new ExperienceSystem(),
+            new ExperienceMagnetSystem(),
             new ExperienceDropSystem(),
             new StatSystem(),
             new HealthSystem(),

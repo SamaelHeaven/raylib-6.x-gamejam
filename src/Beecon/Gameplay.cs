@@ -10,8 +10,8 @@ public static class Gameplay
 
     public static class Player
     {
-        public static float Radius => 25f;
-        public static float SensorRadius => 25f;
+        public static float Radius => 18f;
+        public static float SensorRadius => 18f;
         public static float Health => 1_000f;
         public static float Damage => 50f;
         public static TimeSpan DamageCooldown => TimeSpan.FromMilliseconds(200);
@@ -88,9 +88,12 @@ public static class Gameplay
 
     public static class Experience
     {
-        public static float Radius => 4f;
+        public static float Radius => 2f;
         public static float BaseRequired => 20f;
         public static float RequiredGrowth => 1.5f;
+        public static float MagnetRadius => 60f;
+        public static float MagnetMinSpeed => 75f;
+        public static float MagnetMaxSpeed => 400f;
 
         public static float RequiredForLevel(int level)
         {

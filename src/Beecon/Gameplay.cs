@@ -88,7 +88,7 @@ public static class Gameplay
 
     public static class Experience
     {
-        public static float Radius => 8f;
+        public static float Radius => 4f;
         public static float BaseRequired => 20f;
         public static float RequiredGrowth => 1.5f;
 

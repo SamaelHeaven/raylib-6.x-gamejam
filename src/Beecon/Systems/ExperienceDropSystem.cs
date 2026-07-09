@@ -11,7 +11,7 @@ public sealed class ExperienceDropSystem : GameSystem
         {
             if (!health.IsDead)
                 continue;
-            new ExperiencePrefab(reward.Amount, reward.Color).Build(
+            new ExperiencePrefab(reward.Amount, reward.Type).Build(
                 Scene.Entity().SetPosition(body.Position)
             );
         }

@@ -10,6 +10,7 @@ public static class Visuals
         public static float HexSize => 96f;
         public static float LineThickness => 4f;
         public static float ParallaxFactor => 0.5f;
+
         public static Shader Shader =>
             field ??= Shader.Fragment.Resource("Shader.hexagon.frag.glsl");
     }
@@ -84,6 +85,8 @@ public static class Visuals
         public static Color Color => Color.SkyBlue;
         public static Color TurretColor => Color.Violet;
         public static Color ShieldColor => Color.Blue;
+        public static Texture Texture => field ??= Texture.Resource("Texture.experience.png");
+        public static TextureAtlas TextureAtlas => field ??= new TextureAtlas(Texture, 3, 1);
     }
 
     public static class Hud

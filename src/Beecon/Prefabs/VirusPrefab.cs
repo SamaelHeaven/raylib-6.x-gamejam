@@ -29,7 +29,7 @@ public struct VirusPrefab(VirusType type = VirusType.Normal, int mergeCount = 0)
                     ShapeCategory.Player | ShapeCategory.Bee
                 )
             )
-            .Set(new ExperienceReward(ExperienceOf(Type), ExperienceColorOf(Type)));
+            .Set(new ExperienceReward(ExperienceOf(Type), ExperienceTypeOf(Type)));
 
         var shape = CircleShape.Make(radius);
         body.CreateShape(
@@ -144,13 +144,13 @@ public struct VirusPrefab(VirusType type = VirusType.Normal, int mergeCount = 0)
         };
     }
 
-    private static Color ExperienceColorOf(VirusType type)
+    private static ExperienceType ExperienceTypeOf(VirusType type)
     {
         return type switch
         {
-            VirusType.Shield => Visuals.Experience.ShieldColor,
-            VirusType.Turret => Visuals.Experience.TurretColor,
-            _ => Visuals.Experience.Color,
+            VirusType.Shield => ExperienceType.Large,
+            VirusType.Turret => ExperienceType.Medium,
+            _ => ExperienceType.Small,
         };
     }
 }

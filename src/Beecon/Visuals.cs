@@ -88,7 +88,7 @@ public static class Visuals
     public static class Wall
     {
         public static int ZIndex => 500;
-        public static Color Color => Color.DarkGray;
+        public static Color Color => Background.LineColor;
     }
 
     public static class Beacon

@@ -16,14 +16,15 @@ public sealed class VirusMovementSystem : GameSystem
         {
             var offset = playerPosition - body.Position;
             var direction = offset.Normalize();
-            body.Seek(direction * SpeedOf(virus.Type), Gameplay.Virus.Acceleration);
+            var speed = entity.TryGet(out Boss _) ? Gameplay.Boss.MaxSpeed : SpeedOf(virus.Type);
+            body.Seek(direction * speed, Gameplay.Virus.Acceleration);
             if (direction == Vector2.Zero)
                 continue;
             body.Rotation = MathF.Atan2(direction.Y, direction.X) * (180f / MathF.PI);
             if (!entity.TryGet(out Shield shield) || !shield.Visual.IsValid)
                 continue;
             var visual = shield.Visual;
-            visual.Position = direction * Gameplay.Virus.BarrierOffset;
+            visual.Position = direction * shield.Offset;
         }
     }
 

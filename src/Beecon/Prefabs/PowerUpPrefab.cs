@@ -15,7 +15,7 @@ public struct PowerUpPrefab(PowerUpType type) : IPrefab
             .SetZIndex(Visuals.PowerUp.ZIndex)
             .Set(new PowerUp(Type))
             .Set(body)
-            .Set(new Circle(ColorOf(Type)) { Scale = Visuals.PowerUp.Size });
+            .Set(new Sprite(TextureOf(Type)) { Scale = Visuals.PowerUp.Size });
 
         body.CreateShape(
             new ShapeDef
@@ -31,13 +31,13 @@ public struct PowerUpPrefab(PowerUpType type) : IPrefab
         );
     }
 
-    private static Color ColorOf(PowerUpType type)
+    private static Texture TextureOf(PowerUpType type)
     {
         return type switch
         {
-            PowerUpType.Health => Visuals.PowerUp.HealthColor,
-            PowerUpType.Magnet => Visuals.PowerUp.MagnetColor,
-            _ => Visuals.PowerUp.NukeColor,
+            PowerUpType.Health => Visuals.PowerUp.HealthTexture,
+            PowerUpType.Magnet => Visuals.PowerUp.MagnetTexture,
+            _ => Visuals.PowerUp.NukeTexture,
         };
     }
 }

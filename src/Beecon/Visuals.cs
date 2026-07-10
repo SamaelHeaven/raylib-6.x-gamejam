@@ -62,6 +62,14 @@ public static class Visuals
         public static TextureAtlas TextureAtlas => field ??= new TextureAtlas(Texture, 4, 1);
     }
 
+    public static class Boss
+    {
+        public static Color Tint => "#8EC5FF";
+
+        public static Vector2 ShieldSize =>
+            new(Gameplay.Boss.BarrierThickness * 8f, Gameplay.Boss.BarrierWidth * 2f);
+    }
+
     public static class Shield
     {
         public static int ZIndex => Virus.ZIndex + 1;
@@ -123,9 +131,9 @@ public static class Visuals
     {
         public static int ZIndex => 1_150;
         public static float Size => 28f;
-        public static Color HealthColor => "#4ADE80";
-        public static Color MagnetColor => "#60A5FA";
-        public static Color NukeColor => "#F87171";
+        public static Texture HealthTexture => field ??= Texture.Resource("Texture.health.png");
+        public static Texture MagnetTexture => field ??= Texture.Resource("Texture.magnet.png");
+        public static Texture NukeTexture => field ??= Texture.Resource("Texture.nuke.png");
     }
 
     public static class Hud

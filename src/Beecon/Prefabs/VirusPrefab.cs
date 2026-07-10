@@ -4,12 +4,17 @@ using Beecon.Scenes;
 
 namespace Beecon.Prefabs;
 
-public struct VirusPrefab(VirusType type = VirusType.Normal, int mergeCount = 0, int strength = 0)
-    : IPrefab
+public struct VirusPrefab(
+    VirusType type = VirusType.Normal,
+    int mergeCount = 0,
+    int strength = 0,
+    bool boss = false
+) : IPrefab
 {
     public VirusType Type { get; set; } = type;
     public int MergeCount { get; set; } = mergeCount;
     public int Strength { get; set; } = strength;
+    public bool IsBoss { get; set; } = boss;
 
     private static BatchedSpriteAnimationFrame[] AnimationFrames =>
         field ??= Visuals.Virus.TextureAtlas.GetBatchedSpriteAnimationFrames(0, 3).ToArray();
@@ -37,7 +42,7 @@ public struct VirusPrefab(VirusType type = VirusType.Normal, int mergeCount = 0,
             new BodyDef { Type = BodyType.Dynamic, LockAngularZ = true }
         );
 
-        var radius = RadiusOf(Type, MergeCount);
+        var radius = IsBoss ? Gameplay.Boss.Radius : RadiusOf(Type, MergeCount);
 
         entity
             .SetZIndex(Visuals.Virus.ZIndex)
@@ -55,21 +60,29 @@ public struct VirusPrefab(VirusType type = VirusType.Normal, int mergeCount = 0,
                     batchSingleton.SpriteBatch,
                     new SpriteInstance
                     {
-                        Tint = ColorOf(Type),
+                        Tint = IsBoss ? Visuals.Boss.Tint : ColorOf(Type),
                         Scale = radius * Visuals.Virus.SizeScale,
                     }
                 )
             )
             .Set(new BatchedSpriteAnimation(AnimationFrames, Visuals.Virus.AnimationDelay))
-            .Set(new Health(HealthOf(Strength)))
+            .Set(new Health(IsBoss ? Gameplay.Boss.Health : HealthOf(Strength)))
             .Set(
                 new Damage(
-                    DamageOf(Strength),
+                    IsBoss ? Gameplay.Boss.Damage : DamageOf(Strength),
                     Gameplay.Virus.DamageCooldown,
                     ShapeCategory.Player | ShapeCategory.Bee
                 )
             )
-            .Set(new ExperienceReward(ExperienceOf(Type), ExperienceTypeOf(Type)));
+            .Set(
+                new ExperienceReward(
+                    IsBoss ? Gameplay.Boss.ExperienceBonus : ExperienceOf(Type),
+                    IsBoss ? ExperienceType.Large : ExperienceTypeOf(Type)
+                )
+            );
+
+        if (IsBoss)
+            entity.Set(new Boss());
 
         var shape = CircleShape.Make(radius);
         body.CreateShape(
@@ -93,22 +106,42 @@ public struct VirusPrefab(VirusType type = VirusType.Normal, int mergeCount = 0,
             shape
         );
 
-        if (Type is VirusType.Turret or VirusType.Shield)
+        if (IsBoss)
+            BuildBossTurrets(entity);
+        else if (Type is VirusType.Turret or VirusType.Shield)
             entity.Scope(scene => scene.Entity().Set(new Turret()));
 
-        if (Type is VirusType.Shield)
-            BuildShield(entity, body);
+        if (IsBoss || Type is VirusType.Shield)
+            BuildShield(entity, body, IsBoss);
     }
 
-    private static void BuildShield(Entity entity, Body body)
+    private static void BuildBossTurrets(Entity entity)
     {
-        var size = new Vector2(Gameplay.Virus.BarrierThickness, Gameplay.Virus.BarrierWidth);
-        var offset = new Vector2(Gameplay.Virus.BarrierOffset, 0f);
+        var count = Gameplay.Boss.TurretCount;
+        for (var i = 0; i < count; i++)
+        {
+            var position =
+                new Vector2(MathF.Cos(MathF.Tau / count * i), MathF.Sin(MathF.Tau / count * i))
+                * Gameplay.Boss.TurretRingRadius;
+            entity.Scope(scene => scene.Entity().SetPosition(position).Set(new Turret()));
+        }
+    }
+
+    private static void BuildShield(Entity entity, Body body, bool boss)
+    {
+        var thickness = boss ? Gameplay.Boss.BarrierThickness : Gameplay.Virus.BarrierThickness;
+        var width = boss ? Gameplay.Boss.BarrierWidth : Gameplay.Virus.BarrierWidth;
+        var barrierOffset = boss ? Gameplay.Boss.BarrierOffset : Gameplay.Virus.BarrierOffset;
+        var density = boss ? Gameplay.Boss.BarrierDensity : Gameplay.Virus.BarrierDensity;
+        var visualSize = boss ? Visuals.Boss.ShieldSize : Visuals.Shield.Size;
+
+        var size = new Vector2(thickness, width);
+        var offset = new Vector2(barrierOffset, 0f);
 
         body.CreateShape(
             new ShapeDef
             {
-                Density = Gameplay.Virus.BarrierDensity,
+                Density = density,
                 Filter = new ShapeFilter
                 {
                     Category = ShapeCategory.Shield,
@@ -139,14 +172,14 @@ public struct VirusPrefab(VirusType type = VirusType.Normal, int mergeCount = 0,
                 .Set(
                     new BatchedSprite(
                         batchSingleton.SpriteBatch,
-                        new SpriteInstance { Scale = Visuals.Shield.Size }
+                        new SpriteInstance { Scale = visualSize }
                     )
                 )
                 .Set(
                     new BatchedSpriteAnimation(ShieldAnimationFrames, Visuals.Shield.AnimationDelay)
                 )
         );
-        entity.Set(new Shield { Visual = visual });
+        entity.Set(new Shield { Visual = visual, Offset = barrierOffset });
     }
 
     private static float RadiusOf(VirusType type, int mergeCount)

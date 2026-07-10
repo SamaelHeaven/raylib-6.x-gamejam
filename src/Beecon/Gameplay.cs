@@ -99,6 +99,22 @@ public static class Gameplay
         public static float SpawnMultiplier => 4f;
     }
 
+    public static class Boss
+    {
+        public static float Radius => 110f;
+        public static float Health => 1_200f;
+        public static float Damage => 120f;
+        public static float MaxSpeed => 140f;
+        public static float ExperienceBonus => 1_000f;
+        public static int TurretCount => 5;
+        public static float TurretRingRadius => Radius * 0.65f;
+        public static float BarrierThickness => 16f;
+        public static float BarrierWidth => Radius * 3f;
+        public static float BarrierOffset => Radius + BarrierThickness * 1.5f;
+        public static float BarrierDensity => 2_000f;
+        public static float SpawnMargin => 120f;
+    }
+
     public static class Turret
     {
         public static TimeSpan FireInterval => TimeSpan.FromSeconds(0.8);
@@ -168,7 +184,7 @@ public static class Gameplay
 
     public static class PowerUp
     {
-        public static float DropChance => 0.005f;
+        public static float DropChance => 0.0025f;
         public static float Radius => 12f;
         public static TimeSpan MagnetDuration => TimeSpan.FromSeconds(3.5);
         public static float NukeDamage => 500f;

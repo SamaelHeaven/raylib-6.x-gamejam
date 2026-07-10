@@ -9,7 +9,10 @@ public sealed class VirusDespawnSystem : GameSystem
         var target = Scene.Camera.Target;
         var maxDistanceSquared = Gameplay.Virus.DespawnDistance * Gameplay.Virus.DespawnDistance;
         foreach (var (entity, _, body) in Entries<Virus, Body>())
-            if ((body.Position - target).LengthSquared() > maxDistanceSquared)
+            if (
+                !entity.TryGet(out Boss _)
+                && (body.Position - target).LengthSquared() > maxDistanceSquared
+            )
                 entity.Destroy();
     }
 }

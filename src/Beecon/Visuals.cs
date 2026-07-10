@@ -102,8 +102,8 @@ public static class Visuals
 
     public static class Matrix
     {
-        public static int Resolution => 256 * 2;
-        public static float CellSize => 64f;
+        public static int Resolution => 256;
+        public static float CellSize => 32f;
         public static int Trail => 6;
         public static TimeSpan StepInterval => TimeSpan.FromMilliseconds(70);
         public static Color BackgroundColor => "#192E03";

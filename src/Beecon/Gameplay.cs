@@ -52,7 +52,7 @@ public static class Gameplay
         public static float MaxSpeed => 75f;
         public static float TurretMaxSpeed => 95f;
         public static float ShieldMaxSpeed => 120f;
-        public static TimeSpan SpawnInterval => TimeSpan.FromSeconds(0.5);
+        public static TimeSpan SpawnInterval => TimeSpan.FromSeconds(0.3);
         public static float SpawnMargin => 96f;
         public static float SpawnBias => 2.5f;
         public static int BaseSpawnCount => 1;
@@ -61,12 +61,12 @@ public static class Gameplay
         public static float MaxCountPerMinute => 14f;
         public static int AbsoluteMaxCount => 220;
         public static float SpawnClearanceRadius => Radius;
-        public static float DespawnDistance => 1_600f;
+        public static float DespawnDistance => 1_400f;
         public static float MergeGrowth => 4f;
         public static int MergesPerPromotion => 5;
-        public static TimeSpan MergeInterval => TimeSpan.FromSeconds(1);
+        public static TimeSpan MergeInterval => TimeSpan.FromSeconds(0.5);
         public static int TurretMergesPerPromotion => 3;
-        public static TimeSpan TurretMergeInterval => TimeSpan.FromSeconds(2.5);
+        public static TimeSpan TurretMergeInterval => TimeSpan.FromSeconds(1.25);
         public static float ExperienceBonus => 5f;
         public static float TurretExperience => 25f;
         public static float ShieldExperience => 60f;

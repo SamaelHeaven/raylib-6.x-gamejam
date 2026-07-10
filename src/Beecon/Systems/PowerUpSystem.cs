@@ -1,4 +1,5 @@
 using Beecon.Components;
+using Beecon.Scenes;
 
 namespace Beecon.Systems;
 
@@ -28,6 +29,7 @@ public sealed class PowerUpSystem : GameSystem
             case PowerUpType.Nuke:
                 foreach (var (_, _, virusHealth) in Entries<Virus, Health>())
                     virusHealth.Damage(Gameplay.PowerUp.NukeDamage);
+                Scene.Announce("BOOM!");
                 break;
         }
     }

@@ -1,5 +1,6 @@
 using Beecon.Components;
 using Beecon.Prefabs;
+using Beecon.Scenes;
 
 namespace Beecon.Systems;
 
@@ -21,8 +22,16 @@ public sealed class SwarmSystem : GameSystem
         var interval = Gameplay.Swarm.Interval.TotalSeconds;
         var duration = Gameplay.Swarm.Duration.TotalSeconds;
         var isActive = elapsed >= interval && elapsed % interval < duration;
-        if (_wasActive && !isActive)
-            SpawnBoss();
+        switch (_wasActive)
+        {
+            case false when isActive:
+                Scene.Announce("SWARM", flash: true);
+                break;
+            case true when !isActive:
+                SpawnBoss();
+                break;
+        }
+
         _wasActive = isActive;
         _swarm.IsActive = isActive;
     }

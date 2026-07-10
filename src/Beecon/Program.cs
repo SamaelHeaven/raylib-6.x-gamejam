@@ -61,6 +61,7 @@ var config = Config
             new StatSystem(),
             new HealthSystem(),
             new PlayerDamageFlashSystem(),
+            new AnnouncementSystem(),
             new MusicSystem(),
         ]
     )

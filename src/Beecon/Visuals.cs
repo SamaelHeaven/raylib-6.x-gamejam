@@ -140,4 +140,15 @@ public static class Visuals
     {
         public static int ZIndex => 10_000;
     }
+
+    public static class Announcement
+    {
+        public static int ZIndex => Hud.ZIndex + 1;
+        public static float FontSize => 48f;
+        public static TimeSpan Duration => TimeSpan.FromSeconds(1.4);
+        public static float RiseSpeed => 55f;
+        public static Vector2 Spread => new(140f, 90f);
+        public static Color FlashColor => "#FF6467";
+        public static TimeSpan FlashInterval => TimeSpan.FromMilliseconds(110);
+    }
 }

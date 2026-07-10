@@ -28,6 +28,8 @@ public sealed class BeeMovementSystem : GameSystem
 
     public override void FixedUpdate()
     {
+        if (!Display.Focused)
+            return;
         var player = Scene.Player;
         if (
             (

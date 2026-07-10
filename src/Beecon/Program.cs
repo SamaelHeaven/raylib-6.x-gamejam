@@ -67,7 +67,7 @@ var config = Config
             new PlayerDamageFlashSystem(),
             new AnnouncementSystem(),
             new GameOverSystem(),
-            new MusicSystem()
+            new MusicSystem(),
         ]
     )
     .Build();

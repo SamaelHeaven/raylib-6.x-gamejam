@@ -15,7 +15,7 @@ public static class Inputs
     #region Buttons
 
     public static InputButton BeeSpreadButton { get; } =
-        new() { MouseButtons = [MouseButton.Right] };
+        new() { MouseButtons = [MouseButton.Left, MouseButton.Right] };
 
     public static InputButton FullscreenButton { get; } = new() { Keys = [Key.Tab] };
     public static InputButton ExitButton { get; } = new() { Keys = [Key.Escape] };

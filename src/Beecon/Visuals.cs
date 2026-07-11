@@ -30,7 +30,7 @@ public static class Visuals
         public static Texture Texture => field ??= Texture.Resource("Texture.queen.png");
         public static TextureAtlas TextureAtlas => field ??= new TextureAtlas(Texture, 4, 1);
         public static Color DamageFlashFrom => "#A1A1A1";
-        public static Color DamageFlashTo => "#FF6467";
+        public static Color DamageFlashTo => "#FFA1AD";
         public static TimeSpan DamageFlashInterval => TimeSpan.FromMilliseconds(90);
         public static int DamageFlashCycles => 4;
     }
@@ -145,10 +145,8 @@ public static class Visuals
     {
         public static int ZIndex => Hud.ZIndex + 2;
         public static float TitleFontSize => 72f;
-        public static Color TitleColor => "#FF6467";
+        public static Color TitleColor => "#FFA1AD";
         public static Vector2 TitleOffset => new(0f, -30f);
-        public static float PromptFontSize => 28f;
-        public static Color PromptColor => Color.White;
         public static Vector2 PromptOffset => new(0f, 40f);
         public static TimeSpan PromptDelay => TimeSpan.FromSeconds(1);
     }
@@ -160,7 +158,7 @@ public static class Visuals
         public static TimeSpan Duration => TimeSpan.FromSeconds(1.4);
         public static float RiseSpeed => 55f;
         public static Vector2 Spread => new(140f, 90f);
-        public static Color FlashColor => "#FF6467";
+        public static Color FlashColor => "#FFA1AD";
         public static TimeSpan FlashInterval => TimeSpan.FromMilliseconds(110);
     }
 }

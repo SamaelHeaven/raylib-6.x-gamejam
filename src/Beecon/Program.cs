@@ -2,7 +2,7 @@
 using Beecon.Scenes;
 using Beecon.Systems;
 
-var scene = Scene.Build<GameScene>();
+var scene = MainMenuScene.Build();
 
 var config = Config
     .Builder()
@@ -43,30 +43,6 @@ var config = Config
             new UISystem(),
             new AnimationSystem(),
             new PhysicsSystem { Order = 1 },
-            new PlayerMovementSystem(),
-            new CameraSystem(),
-            new BackgroundSystem(),
-            new BeeMovementSystem(),
-            new BeeSpawnSystem(),
-            new BeaconSystem(),
-            new MatrixRainSystem(),
-            new SwarmSystem(),
-            new VirusMovementSystem(),
-            new VirusSpawnSystem(),
-            new VirusDespawnSystem(),
-            new VirusMergeSystem(),
-            new TurretSystem(),
-            new BulletDespawnSystem(),
-            new DamageSystem(),
-            new ExperienceSystem(),
-            new ExperienceMagnetSystem(),
-            new ExperienceDropSystem(),
-            new PowerUpSystem(),
-            new StatSystem(),
-            new HealthSystem(),
-            new PlayerDamageFlashSystem(),
-            new AnnouncementSystem(),
-            new GameOverSystem(),
             new MusicSystem(),
         ]
     )

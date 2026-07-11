@@ -57,13 +57,13 @@ public static class Gameplay
         public static float MinSpeedFactor => 0.45f;
         public static TimeSpan SpawnInterval => TimeSpan.FromSeconds(0.25);
         public static TimeSpan MinSpawnInterval => TimeSpan.FromSeconds(0.1);
-        public static float SpawnIntervalDecayPerMinute => 0.025f;
+        public static float SpawnIntervalDecayPerMinute => 0.02f;
         public static float SpawnMargin => 96f;
         public static float SpawnBias => 2.5f;
         public static int BaseSpawnCount => 1;
-        public static float SpawnCountPerMinute => 2.5f;
+        public static float SpawnCountPerMinute => 2f;
         public static int BaseMaxCount => 12;
-        public static float MaxCountPerMinute => 20f;
+        public static float MaxCountPerMinute => 16f;
         public static int AbsoluteMaxCount => 500;
         public static float SpawnClearanceRadius => Radius;
         public static float DespawnDistance => 1_400f;
@@ -118,7 +118,7 @@ public static class Gameplay
         public static TimeSpan Interval => TimeSpan.FromMinutes(2);
         public static TimeSpan Duration => TimeSpan.FromSeconds(30);
         public static float BaseSpawnMultiplier => 2f;
-        public static float SpawnMultiplierPerMinute => 0.3f;
+        public static float SpawnMultiplierPerMinute => 0.25f;
         public static float MaxSpawnMultiplier => 8f;
 
         public static float SpawnMultiplierAt(TimeSpan elapsed)
@@ -154,7 +154,7 @@ public static class Gameplay
     {
         public static float Radius => 4f;
         public static float Health => 10f;
-        public static float Damage => 82f;
+        public static float Damage => 70f;
         public static TimeSpan DamageCooldown => TimeSpan.FromMilliseconds(200);
         public static float Speed => 450f;
         public static float DespawnMargin => Virus.DespawnDistance;

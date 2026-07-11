@@ -22,6 +22,6 @@ public class UITimer : UIContainer
             return;
         var elapsed = swarm.Elapsed;
         _text.Value = $"{(int)elapsed.TotalMinutes:00}:{elapsed.Seconds:00}";
-        _text.Fill = swarm.IsActive ? "#FF6467" : Color.White;
+        _text.Fill = swarm.IsActive ? "#FFA1AD" : Color.White;
     }
 }

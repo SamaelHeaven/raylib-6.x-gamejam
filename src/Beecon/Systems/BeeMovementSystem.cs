@@ -73,10 +73,8 @@ public sealed class BeeMovementSystem : GameSystem
     private void Spread()
     {
         var player = Scene.Player;
-        if (player.IsNull)
-            return;
-        var playerPosition = player.Position;
-        var beeSpeed = player.Get<Player>().Stats.BeeSpeed;
+        var center = player.IsNull ? Mouse.WorldPosition : player.Position;
+        var beeSpeed = BeeSpeed;
         var count = Scene.Count<Bee>();
         var i = 0;
         foreach (
@@ -86,7 +84,7 @@ public sealed class BeeMovementSystem : GameSystem
         )
         {
             var targetPosition =
-                playerPosition + HexagonSpreadOffset((float)i / count, Gameplay.Bee.SpreadRadius);
+                center + HexagonSpreadOffset((float)i / count, Gameplay.Bee.SpreadRadius);
             body.Arrive(
                 targetPosition,
                 beeSpeed,

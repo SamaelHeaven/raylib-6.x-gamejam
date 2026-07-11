@@ -1,4 +1,4 @@
-﻿namespace Beecon;
+﻿namespace Beecon.Components;
 
 public enum ExperienceType
 {

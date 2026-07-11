@@ -5,6 +5,8 @@ public sealed class BackgroundSystem : GameSystem
     private Entity _entity;
     private Sprite _sprite = null!;
 
+    public CameraProvider Camera { get; set; } = Vigilance.Core.Camera.Scene;
+
     public override void Initialize()
     {
         var shader = Visuals.Background.Shader;
@@ -14,7 +16,7 @@ public sealed class BackgroundSystem : GameSystem
         shader.SetFloat("uLineThickness", Visuals.Background.LineThickness);
         _sprite = new Sprite(Texture.White)
         {
-            Camera = Camera.Null,
+            Camera = Vigilance.Core.Camera.Null,
             Shader = shader,
             Scale = Display.Size,
         };
@@ -28,11 +30,12 @@ public sealed class BackgroundSystem : GameSystem
 
     public override void PreRender()
     {
+        var camera = Camera.Get();
         var size = Display.Size;
         _sprite.Scale = size;
         _entity.Position = size / 2f;
         var shader = Visuals.Background.Shader;
         shader.SetVec2("uResolution", size);
-        shader.SetVec2("uScroll", Scene.Camera.Target * Visuals.Background.ParallaxFactor);
+        shader.SetVec2("uScroll", (camera?.Target ?? 0) * Visuals.Background.ParallaxFactor);
     }
 }

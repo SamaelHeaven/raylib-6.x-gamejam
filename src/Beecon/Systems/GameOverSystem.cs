@@ -1,4 +1,5 @@
 using Beecon.Scenes;
+using Beecon.UI;
 
 namespace Beecon.Systems;
 
@@ -17,16 +18,9 @@ public sealed class GameOverSystem : GameSystem
             if (!_promptShown && _elapsed >= Visuals.GameOver.PromptDelay)
             {
                 _promptShown = true;
-                ShowText(
-                    "PRESS SPACE TO RESTART",
-                    Visuals.GameOver.PromptFontSize,
-                    Visuals.GameOver.PromptOffset,
-                    Visuals.GameOver.PromptColor
-                );
+                ShowButtons();
             }
 
-            if (Inputs.RestartButton.IsPressed)
-                Game.Scene = new Scene(Scene.SystemsFunc);
             return;
         }
 
@@ -47,6 +41,28 @@ public sealed class GameOverSystem : GameSystem
         }
 
         _started = true;
+    }
+
+    private void ShowButtons()
+    {
+        Scene
+            .Entity()
+            .SetZIndex(Visuals.GameOver.ZIndex)
+            .SetPosition(Display.Size / 2f + Visuals.GameOver.PromptOffset)
+            .Set(
+                new UIContainer { Direction = Direction.LeftToRight, GapX = 24 }[
+                    new UIButton("RESTART")
+                    {
+                        Width = 240,
+                        OnClick = _ => Game.Scene = GameScene.Build(),
+                    },
+                    new UIButton("MENU")
+                    {
+                        Width = 240,
+                        OnClick = _ => Game.Scene = MainMenuScene.Build(),
+                    }
+                ]
+            );
     }
 
     private void ShowText(string text, float fontSize, Vector2 offset, Color color)

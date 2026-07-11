@@ -13,7 +13,12 @@ public sealed class MainMenuScene : GameSystem
     public static Scene Build()
     {
         return Scene.Build<MainMenuScene>(() =>
-            [new MatrixRainSystem(), new BackgroundSystem(), new BeeMovementSystem()]
+            [
+                new MatrixRainSystem(),
+                new BackgroundSystem(),
+                new BeeMovementSystem(),
+                new PhysicsSystem { Order = 1 },
+            ]
         );
     }
 
@@ -23,7 +28,7 @@ public sealed class MainMenuScene : GameSystem
 
         Scene.Entity().SetPosition(Display.Size / 2).Set(new UIMainMenu());
 
-        var center = Scene.Camera.Target;
+        var center = Display.Size / 2;
         for (var i = 0; i < BeeCount; i++)
         {
             var angle = MathF.Tau / BeeCount * i;

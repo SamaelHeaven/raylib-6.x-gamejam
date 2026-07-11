@@ -70,6 +70,7 @@ public class UIMainMenu : UIContainer
                             Select Upgrade : {StatType.All.AsValueEnumerable().Select(type =>
                                 (int)type + 1
                             ).JoinToString(" ")}
+                            Pause          : {Inputs.PauseButton.Keys.AsValueEnumerable().Select(key => key.Name).JoinToString(" ")}
                             """
                         )
                         {

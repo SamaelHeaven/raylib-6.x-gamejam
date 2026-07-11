@@ -42,7 +42,7 @@ var config = Config
             new SpriteBatchSystem(),
             new UISystem(),
             new AnimationSystem(),
-            new PhysicsSystem { Order = 1 },
+            new MatrixRainSystem(),
             new MusicSystem(),
         ]
     )

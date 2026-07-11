@@ -9,6 +9,7 @@ public sealed class GameScene : GameSystem
     {
         return Scene.Build<GameScene>(() =>
             [
+                new PhysicsSystem { Order = 1 },
                 new PlayerMovementSystem(),
                 new CameraSystem(),
                 new BackgroundSystem(),
@@ -33,6 +34,7 @@ public sealed class GameScene : GameSystem
                 new PlayerDamageFlashSystem(),
                 new AnnouncementSystem(),
                 new GameOverSystem(),
+                new PauseSystem(),
             ]
         );
     }

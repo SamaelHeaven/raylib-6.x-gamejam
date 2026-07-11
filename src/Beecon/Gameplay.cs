@@ -25,9 +25,9 @@ public static class Gameplay
     {
         public static float Radius => 10f;
         public static float SensorRadius => 20f;
-        public static float Health => 150f;
-        public static float Damage => 5f;
-        public static TimeSpan DamageCooldown => TimeSpan.FromMilliseconds(200);
+        public static float Health => 160f;
+        public static float Damage => 6f;
+        public static TimeSpan DamageCooldown => TimeSpan.FromMilliseconds(170);
         public static float Acceleration => 8f;
         public static float MaxSpeed => 325f;
         public static float ArrivalRadius => Radius;
@@ -41,9 +41,9 @@ public static class Gameplay
     public static class Virus
     {
         public static float Radius => 10f;
-        public static float Health => 50f;
-        public static float Damage => 15f;
-        public static float HealthPerMerge => 40f;
+        public static float Health => 40f;
+        public static float Damage => 12f;
+        public static float HealthPerMerge => 30f;
         public static float DamagePerMerge => 6f;
         public static float TurretRadius => 30f;
         public static float ShieldRadius => 50f;
@@ -52,14 +52,19 @@ public static class Gameplay
         public static float MaxSpeed => 75f;
         public static float TurretMaxSpeed => 95f;
         public static float ShieldMaxSpeed => 120f;
+        public static float SpeedMassReference => 0.3f;
+        public static float SpeedMassPenalty => 0.07f;
+        public static float MinSpeedFactor => 0.45f;
         public static TimeSpan SpawnInterval => TimeSpan.FromSeconds(0.25);
+        public static TimeSpan MinSpawnInterval => TimeSpan.FromSeconds(0.1);
+        public static float SpawnIntervalDecayPerMinute => 0.025f;
         public static float SpawnMargin => 96f;
         public static float SpawnBias => 2.5f;
         public static int BaseSpawnCount => 1;
         public static float SpawnCountPerMinute => 2.5f;
-        public static int BaseMaxCount => 10;
-        public static float MaxCountPerMinute => 14f;
-        public static int AbsoluteMaxCount => 180;
+        public static int BaseMaxCount => 12;
+        public static float MaxCountPerMinute => 20f;
+        public static int AbsoluteMaxCount => 500;
         public static float SpawnClearanceRadius => Radius;
         public static float DespawnDistance => 1_400f;
         public static float MergeGrowth => 4f;
@@ -75,11 +80,27 @@ public static class Gameplay
         public static float BarrierOffset => ShieldRadius + BarrierThickness * 1.5f;
         public static float BarrierDensity => 1_000f;
 
+        public static float SpeedFactor(float mass)
+        {
+            var factor =
+                1f
+                - SpeedMassPenalty
+                    * MathF.Log(MathF.Max(mass, SpeedMassReference) / SpeedMassReference);
+            return Math.Clamp(factor, MinSpeedFactor, 1f);
+        }
+
+        public static TimeSpan SpawnIntervalAt(TimeSpan elapsed)
+        {
+            var seconds =
+                SpawnInterval.TotalSeconds - SpawnIntervalDecayPerMinute * elapsed.TotalMinutes;
+            return TimeSpan.FromSeconds(Math.Max(MinSpawnInterval.TotalSeconds, seconds));
+        }
+
         public static int SpawnCountAt(TimeSpan elapsed, bool swarm)
         {
             var count = BaseSpawnCount + SpawnCountPerMinute * (float)elapsed.TotalMinutes;
             if (swarm)
-                count *= Swarm.SpawnMultiplier;
+                count *= Swarm.SpawnMultiplierAt(elapsed);
             return Math.Max(1, (int)count);
         }
 
@@ -87,7 +108,7 @@ public static class Gameplay
         {
             var max = BaseMaxCount + MaxCountPerMinute * (float)elapsed.TotalMinutes;
             if (swarm)
-                max *= Swarm.SpawnMultiplier;
+                max *= Swarm.SpawnMultiplierAt(elapsed);
             return Math.Min(AbsoluteMaxCount, (int)max);
         }
     }
@@ -95,8 +116,17 @@ public static class Gameplay
     public static class Swarm
     {
         public static TimeSpan Interval => TimeSpan.FromMinutes(2);
-        public static TimeSpan Duration => TimeSpan.FromSeconds(45);
-        public static float SpawnMultiplier => 4f;
+        public static TimeSpan Duration => TimeSpan.FromSeconds(30);
+        public static float BaseSpawnMultiplier => 2f;
+        public static float SpawnMultiplierPerMinute => 0.3f;
+        public static float MaxSpawnMultiplier => 8f;
+
+        public static float SpawnMultiplierAt(TimeSpan elapsed)
+        {
+            var multiplier =
+                BaseSpawnMultiplier + SpawnMultiplierPerMinute * (float)elapsed.TotalMinutes;
+            return MathF.Min(MaxSpawnMultiplier, multiplier);
+        }
     }
 
     public static class Boss
@@ -161,13 +191,13 @@ public static class Gameplay
 
         public static float BeeDamage(int level)
         {
-            return Bee.Damage + 1.5f * level;
+            return Bee.Damage + 2f * level;
         }
 
         public static TimeSpan BeeReload(int level)
         {
             return TimeSpan.FromSeconds(
-                (Bee.SpawnInterval.TotalSeconds * MathF.Pow(0.85f, level)).Max(0.05)
+                Math.Max(Bee.SpawnInterval.TotalSeconds / (1f + level * 0.12f), 0.05f)
             );
         }
 
@@ -184,7 +214,7 @@ public static class Gameplay
 
     public static class PowerUp
     {
-        public static float DropChance => 0.0025f;
+        public static float DropChance => 0.0026f;
         public static float Radius => 12f;
         public static TimeSpan MagnetDuration => TimeSpan.FromSeconds(4.5);
         public static float NukeDamage => 500f;
@@ -192,13 +222,13 @@ public static class Gameplay
 
     public static class Beacon
     {
-        public static int Count => 155;
+        public static int Count => 160;
         public static int Sides => 6;
         public static float Radius => 150f;
         public static TimeSpan ChargeDuration => TimeSpan.FromSeconds(3);
         public static TimeSpan DischargeDuration => TimeSpan.FromSeconds(2);
-        public static int MinBeesBonus => 1;
-        public static int MaxBeesBonus => 6;
+        public static int MinBeesBonus => 2;
+        public static int MaxBeesBonus => 10;
         public static int SpawnMaxAttempts => 32;
     }
 

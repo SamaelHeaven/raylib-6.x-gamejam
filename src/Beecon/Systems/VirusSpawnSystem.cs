@@ -11,10 +11,11 @@ public sealed class VirusSpawnSystem : GameSystem
 
     public override void Update()
     {
-        if (!_spawnTimer.Update())
-            return;
         var swarm = Scene.Swarm;
         var elapsed = swarm?.Elapsed ?? TimeSpan.Zero;
+        _spawnTimer.Duration = Gameplay.Virus.SpawnIntervalAt(elapsed);
+        if (!_spawnTimer.Update())
+            return;
         var isSwarm = swarm?.IsActive ?? false;
         var spawnCount = Gameplay.Virus.SpawnCountAt(elapsed, isSwarm);
         var maxCount = Gameplay.Virus.MaxCountAt(elapsed, isSwarm);

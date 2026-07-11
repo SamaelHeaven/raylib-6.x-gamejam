@@ -16,8 +16,11 @@ public sealed class VirusMovementSystem : GameSystem
         {
             var offset = playerPosition - body.Position;
             var direction = offset.Normalize();
-            var speed = entity.TryGet(out Boss _) ? Gameplay.Boss.MaxSpeed : SpeedOf(virus.Type);
-            body.Seek(direction * speed, Gameplay.Virus.Acceleration);
+            var baseSpeed = entity.TryGet(out Boss _)
+                ? Gameplay.Boss.MaxSpeed
+                : SpeedOf(virus.Type);
+            var speed = baseSpeed * Gameplay.Virus.SpeedFactor(body.Mass);
+            body.Seek(direction * speed, Gameplay.Virus.Acceleration * body.Mass);
             if (direction == Vector2.Zero)
                 continue;
             body.Rotation = MathF.Atan2(direction.Y, direction.X) * (180f / MathF.PI);

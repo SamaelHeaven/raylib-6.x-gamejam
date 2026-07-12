@@ -49,7 +49,7 @@ public struct BeePrefab : IPrefab
                 new Damage(
                     Gameplay.Bee.Damage,
                     Gameplay.Bee.DamageCooldown,
-                    ShapeCategory.Virus | ShapeCategory.BulletSensor
+                    ShapeCategory.Virus | ShapeCategory.Shield | ShapeCategory.BulletSensor
                 )
             );
 

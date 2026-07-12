@@ -108,11 +108,29 @@ public struct VirusPrefab(
 
         if (IsBoss)
             BuildBossTurrets(entity);
-        else if (Type is VirusType.Turret or VirusType.Shield)
-            entity.Scope(scene => scene.Entity().Set(new Turret()));
+        else
+            switch (Type)
+            {
+                case VirusType.Shield:
+                    BuildShieldTurrets(entity);
+                    break;
+                case VirusType.Turret:
+                    entity.Scope(scene => scene.Entity().Set(new Turret()));
+                    break;
+            }
 
         if (IsBoss || Type is VirusType.Shield)
             BuildShield(entity, body, IsBoss);
+    }
+
+    private static void BuildShieldTurrets(Entity entity)
+    {
+        var offset = Gameplay.Virus.ShieldRadius * 0.5f;
+        foreach (var y in stackalloc[] { -offset, offset })
+        {
+            var position = new Vector2(0f, y);
+            entity.Scope(scene => scene.Entity().SetPosition(position).Set(new Turret()));
+        }
     }
 
     private static void BuildBossTurrets(Entity entity)
@@ -133,19 +151,20 @@ public struct VirusPrefab(
         var width = boss ? Gameplay.Boss.BarrierWidth : Gameplay.Virus.BarrierWidth;
         var barrierOffset = boss ? Gameplay.Boss.BarrierOffset : Gameplay.Virus.BarrierOffset;
         var density = boss ? Gameplay.Boss.BarrierDensity : Gameplay.Virus.BarrierDensity;
+        var health = boss ? Gameplay.Boss.ShieldHealth : Gameplay.Virus.ShieldHealth;
         var visualSize = boss ? Visuals.Boss.ShieldSize : Visuals.Shield.Size;
 
         var size = new Vector2(thickness, width);
         var offset = new Vector2(barrierOffset, 0f);
 
-        body.CreateShape(
+        var barrier = body.CreateShape(
             new ShapeDef
             {
                 Density = density,
                 Filter = new ShapeFilter
                 {
                     Category = ShapeCategory.Shield,
-                    Mask = ShapeCategory.Player | ShapeCategory.Bee,
+                    Mask = ShapeCategory.Player | ShapeCategory.Bee | ShapeCategory.BeeSensor,
                 },
             },
             PolygonShape.MakeBox(size, offset, 0f)
@@ -179,7 +198,15 @@ public struct VirusPrefab(
                     new BatchedSpriteAnimation(ShieldAnimationFrames, Visuals.Shield.AnimationDelay)
                 )
         );
-        entity.Set(new Shield { Visual = visual, Offset = barrierOffset });
+        entity.Set(
+            new Shield
+            {
+                Visual = visual,
+                Offset = barrierOffset,
+                Health = new Health(health),
+                Barrier = barrier,
+            }
+        );
     }
 
     private static float RadiusOf(VirusType type, int mergeCount)

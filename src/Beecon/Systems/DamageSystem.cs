@@ -1,4 +1,5 @@
 using Beecon.Components;
+using Beecon.Physics;
 
 namespace Beecon.Systems;
 
@@ -17,13 +18,12 @@ public sealed class DamageSystem : GameSystem
             return;
         if ((visitor.Filter.Category & damage.TargetMask) == 0)
             return;
-        if (!target.TryGet(out Health health))
+        var isShield = (visitor.Filter.Category & ShapeCategory.Shield) != 0;
+        if (!ApplyDamage(target, damage.Amount, isShield))
             return;
-        health.Damage(damage.Amount);
-        Hit(target);
         if (!_targetsByDamager.TryGetValue(sensor.Entity, out var targets))
             _targetsByDamager[sensor.Entity] = targets = new EntitySparseSet<DamageContact>();
-        targets[target] = new DamageContact(damage.Amount, damage.Cooldown);
+        targets[target] = new DamageContact(damage.Amount, damage.Cooldown, isShield);
     }
 
     public override void WorldSensorEnd(Shape sensor, Shape visitor)
@@ -59,10 +59,10 @@ public sealed class DamageSystem : GameSystem
                 if (contact.Elapsed >= contact.Cooldown)
                 {
                     contact.Elapsed = TimeSpan.Zero;
-                    if (target.TryGet(out Health health))
+                    if (!ApplyDamage(target, contact.Amount, contact.IsShield))
                     {
-                        health.Damage(contact.Amount);
-                        Hit(target);
+                        targets.Remove(target);
+                        continue;
                     }
                 }
 
@@ -72,6 +72,34 @@ public sealed class DamageSystem : GameSystem
             if (targets.Count == 0)
                 _targetsByDamager.Remove(damager);
         }
+    }
+
+    private bool ApplyDamage(Entity target, float amount, bool isShield)
+    {
+        if (isShield)
+        {
+            if (!target.TryGet(out Shield shield))
+                return false;
+            shield.Health.Damage(amount);
+            Hit(target);
+            if (shield.Health.IsDead)
+                BreakShield(target, shield);
+            return true;
+        }
+
+        if (!target.TryGet(out Health health))
+            return false;
+        health.Damage(amount);
+        Hit(target);
+        return true;
+    }
+
+    private static void BreakShield(Entity virus, Shield shield)
+    {
+        virus.Remove<Shield>();
+        shield.Barrier.Destroy();
+        if (shield.Visual.IsValid)
+            shield.Visual.Destroy();
     }
 
     private void Hit(Entity target)
@@ -95,6 +123,7 @@ public sealed class DamageSystem : GameSystem
     private record struct DamageContact(
         float Amount,
         TimeSpan Cooldown,
+        bool IsShield = false,
         TimeSpan Elapsed = default
     );
 }

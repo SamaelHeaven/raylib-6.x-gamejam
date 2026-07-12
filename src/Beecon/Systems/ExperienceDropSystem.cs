@@ -14,11 +14,27 @@ public sealed class ExperienceDropSystem : GameSystem
             if (!health.IsDead)
                 continue;
             if (Random.Shared.NextSingle() < Gameplay.PowerUp.DropChance)
+            {
                 new PowerUpPrefab(RandomPowerUp()).Build(Scene.Entity().SetPosition(body.Position));
+            }
             else
+            {
                 new ExperiencePrefab(reward.Amount, reward.Type).Build(
                     Scene.Entity().SetPosition(body.Position)
                 );
+                DespawnOldestIfExceeded();
+            }
+        }
+    }
+
+    private void DespawnOldestIfExceeded()
+    {
+        if (Scene.Count<Experience>() <= Gameplay.Experience.MaxCount)
+            return;
+        foreach (var (entity, _) in Entries<Experience>())
+        {
+            entity.Destroy();
+            break;
         }
     }
 

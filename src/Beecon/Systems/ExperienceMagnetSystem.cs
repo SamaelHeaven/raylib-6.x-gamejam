@@ -16,26 +16,42 @@ public sealed class ExperienceMagnetSystem : GameSystem
         var active = state.MagnetActive;
         var playerPosition = player.Position;
         var radius = Gameplay.Experience.MagnetRadius;
+        var activeRadius = Gameplay.Experience.MagnetActiveRadius;
+
+        var activeSpeed = Gameplay.Experience.MagnetMinSpeed;
+        if (active)
+        {
+            var elapsed = (float)
+                (Gameplay.PowerUp.MagnetDuration - state.MagnetRemaining).TotalSeconds;
+            activeSpeed = MathF.Min(
+                Gameplay.Experience.MagnetMaxSpeed,
+                Gameplay.Experience.MagnetMinSpeed
+                    + Gameplay.Experience.MagnetAcceleration * elapsed
+            );
+        }
+
         foreach (var (_, _, body) in Entries<Experience, Body>())
         {
             var offset = playerPosition - body.Position;
             var distance = offset.Length();
             if (distance <= 0.01f)
                 continue;
-            if (!active && distance > radius)
-                continue;
             float speed;
-            if (active)
+            if (active && distance <= activeRadius)
             {
-                speed = Gameplay.Experience.MagnetMaxSpeed;
+                speed = activeSpeed;
             }
-            else
+            else if (!active && distance <= radius)
             {
                 var closeness = 1f - distance / radius;
                 speed =
                     Gameplay.Experience.MagnetMinSpeed
                     + (Gameplay.Experience.MagnetMaxSpeed - Gameplay.Experience.MagnetMinSpeed)
                         * closeness;
+            }
+            else
+            {
+                continue;
             }
 
             var step = MathF.Min(speed * Time.FixedDeltaSeconds, distance);

@@ -41,7 +41,7 @@ public sealed class TurretSystem : GameSystem
     {
         foreach (var entity in _createdBullets)
         {
-            if (!entity.Has<Bullet>())
+            if (!entity.IsValid)
                 continue;
             var pitch =
                 1f + (Random.Shared.NextSingle() * 2f - 1f) * Gameplay.Audio.ShootPitchVariation;

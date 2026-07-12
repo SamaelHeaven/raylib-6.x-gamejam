@@ -61,7 +61,7 @@ public static class Gameplay
         public static float SpawnMargin => 96f;
         public static float SpawnBias => 2.5f;
         public static int BaseSpawnCount => 1;
-        public static float SpawnCountPerMinute => 1.35f;
+        public static float SpawnCountPerMinute => 1.45f;
         public static int BaseMaxCount => 12;
         public static float MaxCountPerMinute => 18f;
         public static int AbsoluteMaxCount => 600;
@@ -79,6 +79,7 @@ public static class Gameplay
         public static float BarrierWidth => ShieldRadius * 2.4f;
         public static float BarrierOffset => ShieldRadius + BarrierThickness * 1.5f;
         public static float BarrierDensity => 1_000f;
+        public static float ShieldHealth => 1_300f;
 
         public static float SpeedFactor(float mass)
         {
@@ -132,16 +133,17 @@ public static class Gameplay
     public static class Boss
     {
         public static float Radius => 110f;
-        public static float Health => 1_200f;
+        public static float Health => 1_300f;
         public static float Damage => 120f;
         public static float MaxSpeed => 140f;
         public static float ExperienceBonus => 1_000f;
-        public static int TurretCount => 5;
+        public static int TurretCount => 6;
         public static float TurretRingRadius => Radius * 0.65f;
         public static float BarrierThickness => 16f;
         public static float BarrierWidth => Radius * 3f;
         public static float BarrierOffset => Radius + BarrierThickness * 1.5f;
         public static float BarrierDensity => 2_000f;
+        public static float ShieldHealth => 5_000f;
         public static float SpawnMargin => 120f;
     }
 
@@ -154,7 +156,7 @@ public static class Gameplay
     {
         public static float Radius => 4f;
         public static float Health => 10f;
-        public static float Damage => 70f;
+        public static float Damage => 52f;
         public static TimeSpan DamageCooldown => TimeSpan.FromMilliseconds(200);
         public static float Speed => 450f;
         public static float DespawnMargin => Virus.DespawnDistance;
@@ -165,9 +167,12 @@ public static class Gameplay
         public static float Radius => 2f;
         public static float BaseRequired => 20f;
         public static float RequiredGrowth => 1.5f;
-        public static float MagnetRadius => 60f;
+        public static float MagnetRadius => 62f;
+        public static float MagnetActiveRadius => 3_000f;
         public static float MagnetMinSpeed => 75f;
         public static float MagnetMaxSpeed => 400f;
+        public static float MagnetAcceleration => 600f;
+        public static int MaxCount => 6_000;
 
         public static float RequiredForLevel(int level)
         {

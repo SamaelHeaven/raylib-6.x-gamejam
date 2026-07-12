@@ -34,6 +34,7 @@ public struct BeePrefab : IPrefab
 
         entity
             .SetZIndex(Visuals.Bee.ZIndex)
+            .SetRotation(-90)
             .Set(new Bee())
             .Set(body)
             .Set(animationSingleton.Animation)

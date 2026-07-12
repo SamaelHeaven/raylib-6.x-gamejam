@@ -28,7 +28,7 @@ public sealed class MainMenuScene : GameSystem
 
         Scene.Entity().SetPosition(Display.Size / 2).Set(new UIMainMenu());
 
-        var center = Display.Size / 2;
+        var center = Display.Size / 2 + new Vector2(0, -168);
         for (var i = 0; i < BeeCount; i++)
         {
             var angle = MathF.Tau / BeeCount * i;

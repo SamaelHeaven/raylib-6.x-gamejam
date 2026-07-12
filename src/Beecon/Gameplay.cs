@@ -117,8 +117,8 @@ public static class Gameplay
     {
         public static TimeSpan Interval => TimeSpan.FromMinutes(2);
         public static TimeSpan Duration => TimeSpan.FromSeconds(30);
-        public static float BaseSpawnMultiplier => 2f;
-        public static float SpawnMultiplierPerMinute => 0.3f;
+        public static float BaseSpawnMultiplier => 2.5f;
+        public static float SpawnMultiplierPerMinute => 0.2f;
         public static float MaxSpawnMultiplier => 12f;
 
         public static float SpawnMultiplierAt(TimeSpan elapsed)
